@@ -232,6 +232,69 @@ NSInteger kOAICommonOperationsApiMissingParamErrorCode = 234513;
                             }];
 }
 
+///
+/// Wait for or fetch the email with a given index in the inbox specified
+/// 
+///  @param inboxId Id of the inbox we are fetching emails from (optional)
+///
+///  @param index Zero based index of the email to wait for (optional)
+///
+///  @returns OAIEmail*
+///
+-(NSURLSessionTask*) waitForNthEmailWithInboxId: (NSString*) inboxId
+    index: (NSNumber*) index
+    completionHandler: (void (^)(OAIEmail* output, NSError* error)) handler {
+    NSMutableString* resourcePath = [NSMutableString stringWithFormat:@"/waitForNthEmail"];
+
+    NSMutableDictionary *pathParams = [[NSMutableDictionary alloc] init];
+
+    NSMutableDictionary* queryParams = [[NSMutableDictionary alloc] init];
+    if (inboxId != nil) {
+        queryParams[@"inboxId"] = inboxId;
+    }
+    if (index != nil) {
+        queryParams[@"index"] = index;
+    }
+    NSMutableDictionary* headerParams = [NSMutableDictionary dictionaryWithDictionary:self.apiClient.configuration.defaultHeaders];
+    [headerParams addEntriesFromDictionary:self.defaultHeaders];
+    // HTTP header `Accept`
+    NSString *acceptHeader = [self.apiClient.sanitizer selectHeaderAccept:@[@"application/json"]];
+    if(acceptHeader.length > 0) {
+        headerParams[@"Accept"] = acceptHeader;
+    }
+
+    // response content type
+    NSString *responseContentType = [[acceptHeader componentsSeparatedByString:@", "] firstObject] ?: @"";
+
+    // request content type
+    NSString *requestContentType = [self.apiClient.sanitizer selectHeaderContentType:@[]];
+
+    // Authentication setting
+    NSArray *authSettings = @[@"API_KEY"];
+
+    id bodyParam = nil;
+    NSMutableDictionary *formParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *localVarFiles = [[NSMutableDictionary alloc] init];
+
+    return [self.apiClient requestWithPath: resourcePath
+                                    method: @"GET"
+                                pathParams: pathParams
+                               queryParams: queryParams
+                                formParams: formParams
+                                     files: localVarFiles
+                                      body: bodyParam
+                              headerParams: headerParams
+                              authSettings: authSettings
+                        requestContentType: requestContentType
+                       responseContentType: responseContentType
+                              responseType: @"OAIEmail*"
+                           completionBlock: ^(id data, NSError *error) {
+                                if(handler) {
+                                    handler((OAIEmail*)data, error);
+                                }
+                            }];
+}
+
 
 
 @end

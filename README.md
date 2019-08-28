@@ -100,6 +100,7 @@ Class | Method | HTTP request | Description
 *OAICommonOperationsApi* | [**createNewEmailAddress**](docs/OAICommonOperationsApi.md#createnewemailaddress) | **POST** /newEmailAddress | Create new email address
 *OAICommonOperationsApi* | [**sendEmailSimple**](docs/OAICommonOperationsApi.md#sendemailsimple) | **POST** /sendEmail | Send an email from a random email address
 *OAICommonOperationsApi* | [**waitForLatestEmail**](docs/OAICommonOperationsApi.md#waitforlatestemail) | **GET** /fetchLatestEmail | Fetch inbox&#39;s latest email or if empty wait for email to arrive
+*OAICommonOperationsApi* | [**waitForNthEmail**](docs/OAICommonOperationsApi.md#waitfornthemail) | **GET** /waitForNthEmail | Wait for or fetch the email with a given index in the inbox specified
 *OAIExtraOperationsApi* | [**bulkCreateInboxes**](docs/OAIExtraOperationsApi.md#bulkcreateinboxes) | **POST** /bulk/inboxes | Bulk create Inboxes (email addresses)
 *OAIExtraOperationsApi* | [**bulkDeleteInboxes**](docs/OAIExtraOperationsApi.md#bulkdeleteinboxes) | **DELETE** /bulk/inboxes | Bulk Delete Inboxes
 *OAIExtraOperationsApi* | [**bulkSendEmails**](docs/OAIExtraOperationsApi.md#bulksendemails) | **POST** /bulk/send | Bulk Send Emails

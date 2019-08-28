@@ -71,5 +71,22 @@ extern NSInteger kOAICommonOperationsApiMissingParamErrorCode;
     completionHandler: (void (^)(OAIEmail* output, NSError* error)) handler;
 
 
+/// Wait for or fetch the email with a given index in the inbox specified
+/// 
+///
+/// @param inboxId Id of the inbox we are fetching emails from (optional)
+/// @param index Zero based index of the email to wait for (optional)
+/// 
+///  code:200 message:"OK",
+///  code:401 message:"Unauthorized",
+///  code:403 message:"Forbidden",
+///  code:404 message:"Not Found"
+///
+/// @return OAIEmail*
+-(NSURLSessionTask*) waitForNthEmailWithInboxId: (NSString*) inboxId
+    index: (NSNumber*) index
+    completionHandler: (void (^)(OAIEmail* output, NSError* error)) handler;
+
+
 
 @end

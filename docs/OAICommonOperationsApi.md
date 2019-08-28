@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**createNewEmailAddress**](OAICommonOperationsApi.md#createnewemailaddress) | **POST** /newEmailAddress | Create new email address
 [**sendEmailSimple**](OAICommonOperationsApi.md#sendemailsimple) | **POST** /sendEmail | Send an email from a random email address
 [**waitForLatestEmail**](OAICommonOperationsApi.md#waitforlatestemail) | **GET** /fetchLatestEmail | Fetch inbox&#39;s latest email or if empty wait for email to arrive
+[**waitForNthEmail**](OAICommonOperationsApi.md#waitfornthemail) | **GET** /waitForNthEmail | Wait for or fetch the email with a given index in the inbox specified
 
 
 # **createNewEmailAddress**
@@ -161,6 +162,65 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **inboxEmailAddress** | **NSString***| Email address of the inbox we are fetching emails from | [optional] 
  **inboxId** | [**NSString***](.md)| Id of the inbox we are fetching emails from | [optional] 
+
+### Return type
+
+[**OAIEmail***](OAIEmail.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **waitForNthEmail**
+```objc
+-(NSURLSessionTask*) waitForNthEmailWithInboxId: (NSString*) inboxId
+    index: (NSNumber*) index
+        completionHandler: (void (^)(OAIEmail* output, NSError* error)) handler;
+```
+
+Wait for or fetch the email with a given index in the inbox specified
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSString* inboxId = @"inboxId_example"; // Id of the inbox we are fetching emails from (optional)
+NSNumber* index = @56; // Zero based index of the email to wait for (optional)
+
+OAICommonOperationsApi*apiInstance = [[OAICommonOperationsApi alloc] init];
+
+// Wait for or fetch the email with a given index in the inbox specified
+[apiInstance waitForNthEmailWithInboxId:inboxId
+              index:index
+          completionHandler: ^(OAIEmail* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAICommonOperationsApi->waitForNthEmail: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inboxId** | [**NSString***](.md)| Id of the inbox we are fetching emails from | [optional] 
+ **index** | **NSNumber***| Zero based index of the email to wait for | [optional] 
 
 ### Return type
 
