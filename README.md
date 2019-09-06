@@ -49,6 +49,8 @@ Import the following:
 #import <MailSlurp/OAIEmailAnalysis.h>
 #import <MailSlurp/OAIEmailPreview.h>
 #import <MailSlurp/OAIInbox.h>
+#import <MailSlurp/OAIMatchOption.h>
+#import <MailSlurp/OAIMatchOptions.h>
 #import <MailSlurp/OAISendEmailOptions.h>
 #import <MailSlurp/OAIWebhook.h>
 // load API classes for accessing endpoints
@@ -98,15 +100,20 @@ All URIs are relative to *https://api.mailslurp.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *OAICommonOperationsApi* | [**createNewEmailAddress**](docs/OAICommonOperationsApi.md#createnewemailaddress) | **POST** /newEmailAddress | Create new email address
+*OAICommonOperationsApi* | [**deleteEmail**](docs/OAICommonOperationsApi.md#deleteemail) | **DELETE** /deleteEmail | Delete an email
+*OAICommonOperationsApi* | [**deleteEmailAddress**](docs/OAICommonOperationsApi.md#deleteemailaddress) | **DELETE** /deleteEmailAddress | Delete email address and its emails
+*OAICommonOperationsApi* | [**emptyInbox**](docs/OAICommonOperationsApi.md#emptyinbox) | **DELETE** /emptyInbox | Delete all emails in an inbox
 *OAICommonOperationsApi* | [**sendEmailSimple**](docs/OAICommonOperationsApi.md#sendemailsimple) | **POST** /sendEmail | Send an email from a random email address
-*OAICommonOperationsApi* | [**waitForLatestEmail**](docs/OAICommonOperationsApi.md#waitforlatestemail) | **GET** /fetchLatestEmail | Fetch inbox&#39;s latest email or if empty wait for email to arrive
+*OAICommonOperationsApi* | [**waitForEmailCount**](docs/OAICommonOperationsApi.md#waitforemailcount) | **GET** /waitForEmailCount | Wait for and return count number of emails 
+*OAICommonOperationsApi* | [**waitForLatestEmail**](docs/OAICommonOperationsApi.md#waitforlatestemail) | **GET** /waitForLatestEmail | Fetch inbox&#39;s latest email or if empty wait for email to arrive
+*OAICommonOperationsApi* | [**waitForMatchingEmail**](docs/OAICommonOperationsApi.md#waitformatchingemail) | **POST** /waitForMatchingEmails | Wait or return list of emails that match simple matching patterns
 *OAICommonOperationsApi* | [**waitForNthEmail**](docs/OAICommonOperationsApi.md#waitfornthemail) | **GET** /waitForNthEmail | Wait for or fetch the email with a given index in the inbox specified
 *OAIExtraOperationsApi* | [**bulkCreateInboxes**](docs/OAIExtraOperationsApi.md#bulkcreateinboxes) | **POST** /bulk/inboxes | Bulk create Inboxes (email addresses)
 *OAIExtraOperationsApi* | [**bulkDeleteInboxes**](docs/OAIExtraOperationsApi.md#bulkdeleteinboxes) | **DELETE** /bulk/inboxes | Bulk Delete Inboxes
 *OAIExtraOperationsApi* | [**bulkSendEmails**](docs/OAIExtraOperationsApi.md#bulksendemails) | **POST** /bulk/send | Bulk Send Emails
 *OAIExtraOperationsApi* | [**createInbox**](docs/OAIExtraOperationsApi.md#createinbox) | **POST** /inboxes | Create an Inbox (email address)
 *OAIExtraOperationsApi* | [**createWebhook**](docs/OAIExtraOperationsApi.md#createwebhook) | **POST** /inboxes/{inboxId}/webhooks | Attach a WebHook URL to an inbox
-*OAIExtraOperationsApi* | [**deleteEmail**](docs/OAIExtraOperationsApi.md#deleteemail) | **DELETE** /emails/{emailId} | Delete Email
+*OAIExtraOperationsApi* | [**deleteEmail1**](docs/OAIExtraOperationsApi.md#deleteemail1) | **DELETE** /emails/{emailId} | Delete Email
 *OAIExtraOperationsApi* | [**deleteInbox**](docs/OAIExtraOperationsApi.md#deleteinbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 *OAIExtraOperationsApi* | [**deleteWebhook**](docs/OAIExtraOperationsApi.md#deletewebhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 *OAIExtraOperationsApi* | [**downloadAttachment**](docs/OAIExtraOperationsApi.md#downloadattachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
@@ -128,6 +135,8 @@ Class | Method | HTTP request | Description
  - [OAIEmailAnalysis](docs/OAIEmailAnalysis.md)
  - [OAIEmailPreview](docs/OAIEmailPreview.md)
  - [OAIInbox](docs/OAIInbox.md)
+ - [OAIMatchOption](docs/OAIMatchOption.md)
+ - [OAIMatchOptions](docs/OAIMatchOptions.md)
  - [OAISendEmailOptions](docs/OAISendEmailOptions.md)
  - [OAIWebhook](docs/OAIWebhook.md)
 

@@ -1,6 +1,6 @@
-#import "OAIEmailPreview.h"
+#import "OAIMatchOption.h"
 
-@implementation OAIEmailPreview
+@implementation OAIMatchOption
 
 - (instancetype)init {
   self = [super init];
@@ -17,7 +17,7 @@
  * This method is used by `JSONModel`.
  */
 + (JSONKeyMapper *)keyMapper {
-  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"bcc": @"bcc", @"cc": @"cc", @"created": @"created", @"_id": @"id", @"subject": @"subject", @"to": @"to" }];
+  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"field": @"field", @"should": @"should", @"value": @"value" }];
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[@"bcc", @"cc", @"subject", ];
+  NSArray *optionalProperties = @[@"field", @"should", @"value"];
   return [optionalProperties containsObject:propertyName];
 }
 

@@ -114,7 +114,7 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 ///  code:403 message:"Forbidden"
 ///
 /// @return void
--(NSURLSessionTask*) deleteEmailWithEmailId: (NSString*) emailId
+-(NSURLSessionTask*) deleteEmail1WithEmailId: (NSString*) emailId
     completionHandler: (void (^)(NSError* error)) handler;
 
 

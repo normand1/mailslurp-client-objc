@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**bulkSendEmails**](OAIExtraOperationsApi.md#bulksendemails) | **POST** /bulk/send | Bulk Send Emails
 [**createInbox**](OAIExtraOperationsApi.md#createinbox) | **POST** /inboxes | Create an Inbox (email address)
 [**createWebhook**](OAIExtraOperationsApi.md#createwebhook) | **POST** /inboxes/{inboxId}/webhooks | Attach a WebHook URL to an inbox
-[**deleteEmail**](OAIExtraOperationsApi.md#deleteemail) | **DELETE** /emails/{emailId} | Delete Email
+[**deleteEmail1**](OAIExtraOperationsApi.md#deleteemail1) | **DELETE** /emails/{emailId} | Delete Email
 [**deleteInbox**](OAIExtraOperationsApi.md#deleteinbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 [**deleteWebhook**](OAIExtraOperationsApi.md#deletewebhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 [**downloadAttachment**](OAIExtraOperationsApi.md#downloadattachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
@@ -301,9 +301,9 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteEmail**
+# **deleteEmail1**
 ```objc
--(NSURLSessionTask*) deleteEmailWithEmailId: (NSString*) emailId
+-(NSURLSessionTask*) deleteEmail1WithEmailId: (NSString*) emailId
         completionHandler: (void (^)(NSError* error)) handler;
 ```
 
@@ -326,10 +326,10 @@ NSString* emailId = @"emailId_example"; // emailId
 OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
 
 // Delete Email
-[apiInstance deleteEmailWithEmailId:emailId
+[apiInstance deleteEmail1WithEmailId:emailId
           completionHandler: ^(NSError* error) {
                         if (error) {
-                            NSLog(@"Error calling OAIExtraOperationsApi->deleteEmail: %@", error);
+                            NSLog(@"Error calling OAIExtraOperationsApi->deleteEmail1: %@", error);
                         }
                     }];
 ```
