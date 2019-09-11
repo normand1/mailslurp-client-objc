@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**bulkSendEmails**](OAIExtraOperationsApi.md#bulksendemails) | **POST** /bulk/send | Bulk Send Emails
 [**createInbox**](OAIExtraOperationsApi.md#createinbox) | **POST** /inboxes | Create an Inbox (email address)
 [**createWebhook**](OAIExtraOperationsApi.md#createwebhook) | **POST** /inboxes/{inboxId}/webhooks | Attach a WebHook URL to an inbox
-[**deleteEmail**](OAIExtraOperationsApi.md#deleteemail) | **DELETE** /emails/{emailId} | Delete Email
+[**deleteEmail1**](OAIExtraOperationsApi.md#deleteemail1) | **DELETE** /emails/{emailId} | Delete Email
 [**deleteInbox**](OAIExtraOperationsApi.md#deleteinbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 [**deleteWebhook**](OAIExtraOperationsApi.md#deletewebhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 [**downloadAttachment**](OAIExtraOperationsApi.md#downloadattachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
@@ -20,6 +20,8 @@ Method | HTTP request | Description
 [**getRawEmailContents**](OAIExtraOperationsApi.md#getrawemailcontents) | **GET** /emails/{emailId}/raw | Get Raw Email Content
 [**getWebhooks**](OAIExtraOperationsApi.md#getwebhooks) | **GET** /inboxes/{inboxId}/webhooks | Get all WebHooks for an Inbox
 [**sendEmail**](OAIExtraOperationsApi.md#sendemail) | **POST** /inboxes/{inboxId} | Send Email
+[**uploadAttachment**](OAIExtraOperationsApi.md#uploadattachment) | **POST** /attachments | Upload an attachment for sending
+[**uploadMultipartForm**](OAIExtraOperationsApi.md#uploadmultipartform) | **POST** /attachments/multipart | Upload an attachment for sending using Multipart Form
 
 
 # **bulkCreateInboxes**
@@ -301,9 +303,9 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteEmail**
+# **deleteEmail1**
 ```objc
--(NSURLSessionTask*) deleteEmailWithEmailId: (NSString*) emailId
+-(NSURLSessionTask*) deleteEmail1WithEmailId: (NSString*) emailId
         completionHandler: (void (^)(NSError* error)) handler;
 ```
 
@@ -326,10 +328,10 @@ NSString* emailId = @"emailId_example"; // emailId
 OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
 
 // Delete Email
-[apiInstance deleteEmailWithEmailId:emailId
+[apiInstance deleteEmail1WithEmailId:emailId
           completionHandler: ^(NSError* error) {
                         if (error) {
-                            NSLog(@"Error calling OAIExtraOperationsApi->deleteEmail: %@", error);
+                            NSLog(@"Error calling OAIExtraOperationsApi->deleteEmail1: %@", error);
                         }
                     }];
 ```
@@ -930,6 +932,128 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **uploadAttachment**
+```objc
+-(NSURLSessionTask*) uploadAttachmentWithUploadAttachmentOptions: (OAIUploadAttachmentOptions*) uploadAttachmentOptions
+        completionHandler: (void (^)(NSString* output, NSError* error)) handler;
+```
+
+Upload an attachment for sending
+
+When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+OAIUploadAttachmentOptions* uploadAttachmentOptions = [[OAIUploadAttachmentOptions alloc] init]; // uploadOptions
+
+OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
+
+// Upload an attachment for sending
+[apiInstance uploadAttachmentWithUploadAttachmentOptions:uploadAttachmentOptions
+          completionHandler: ^(NSString* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIExtraOperationsApi->uploadAttachment: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **uploadAttachmentOptions** | [**OAIUploadAttachmentOptions***](OAIUploadAttachmentOptions.md)| uploadOptions | 
+
+### Return type
+
+**NSString***
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **uploadMultipartForm**
+```objc
+-(NSURLSessionTask*) uploadMultipartFormWithFile: (NSURL*) file
+    contentType: (NSString*) contentType
+    filename: (NSString*) filename
+        completionHandler: (void (^)(NSString* output, NSError* error)) handler;
+```
+
+Upload an attachment for sending using Multipart Form
+
+When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSURL* file = [NSURL fileURLWithPath:@"/path/to/file"]; // file
+NSString* contentType = @"contentType_example"; // contentType (optional)
+NSString* filename = @"filename_example"; // filename (optional)
+
+OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
+
+// Upload an attachment for sending using Multipart Form
+[apiInstance uploadMultipartFormWithFile:file
+              contentType:contentType
+              filename:filename
+          completionHandler: ^(NSString* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIExtraOperationsApi->uploadMultipartForm: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **file** | **NSURL*****NSURL***| file | 
+ **contentType** | **NSString***| contentType | [optional] 
+ **filename** | **NSString***| filename | [optional] 
+
+### Return type
+
+**NSString***
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

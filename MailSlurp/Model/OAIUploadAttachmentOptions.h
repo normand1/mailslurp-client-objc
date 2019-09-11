@@ -17,22 +17,19 @@
 
 
 
-@protocol OAIEmailPreview
+@protocol OAIUploadAttachmentOptions
 @end
 
-@interface OAIEmailPreview : OAIObject
+@interface OAIUploadAttachmentOptions : OAIObject
 
-
-@property(nonatomic) NSArray<NSString*>* bcc;
-
-@property(nonatomic) NSArray<NSString*>* cc;
-
-@property(nonatomic) NSDate* created;
-
-@property(nonatomic) NSString* _id;
-
-@property(nonatomic) NSString* subject;
-
-@property(nonatomic) NSArray<NSString*>* to;
+/* Base64 encoded string of file contents [optional]
+ */
+@property(nonatomic) NSString* base64Contents;
+/* Optional contentType for file. For instance application/pdf [optional]
+ */
+@property(nonatomic) NSString* contentType;
+/* Optional filename to save upload with [optional]
+ */
+@property(nonatomic) NSString* filename;
 
 @end

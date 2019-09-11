@@ -1,6 +1,6 @@
-#import "OAISendEmailOptions.h"
+#import "OAIUploadAttachmentOptions.h"
 
-@implementation OAISendEmailOptions
+@implementation OAIUploadAttachmentOptions
 
 - (instancetype)init {
   self = [super init];
@@ -17,7 +17,7 @@
  * This method is used by `JSONModel`.
  */
 + (JSONKeyMapper *)keyMapper {
-  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"attachments": @"attachments", @"bcc": @"bcc", @"body": @"body", @"cc": @"cc", @"charset": @"charset", @"from": @"from", @"html": @"html", @"replyTo": @"replyTo", @"subject": @"subject", @"to": @"to" }];
+  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"base64Contents": @"base64Contents", @"contentType": @"contentType", @"filename": @"filename" }];
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[@"attachments", @"bcc", @"body", @"cc", @"charset", @"from", @"html", @"replyTo", @"subject", ];
+  NSArray *optionalProperties = @[@"base64Contents", @"contentType", @"filename"];
   return [optionalProperties containsObject:propertyName];
 }
 

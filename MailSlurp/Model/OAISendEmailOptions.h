@@ -22,6 +22,9 @@
 
 @interface OAISendEmailOptions : OAIObject
 
+/* Optional list of attachment IDs to send with this email [optional]
+ */
+@property(nonatomic) NSArray<NSString*>* attachments;
 /* Optional list of bcc destination email addresses [optional]
  */
 @property(nonatomic) NSArray<NSString*>* bcc;

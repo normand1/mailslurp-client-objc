@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**attachments** | **NSArray&lt;NSString*&gt;*** | Optional list of attachment IDs to send with this email | [optional] 
 **bcc** | **NSArray&lt;NSString*&gt;*** | Optional list of bcc destination email addresses | [optional] 
 **body** | **NSString*** | Contents of email | [optional] 
 **cc** | **NSArray&lt;NSString*&gt;*** | Optional list of cc destination email addresses | [optional] 

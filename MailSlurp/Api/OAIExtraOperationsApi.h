@@ -5,6 +5,7 @@
 #import "OAIEmailPreview.h"
 #import "OAIInbox.h"
 #import "OAISendEmailOptions.h"
+#import "OAIUploadAttachmentOptions.h"
 #import "OAIWebhook.h"
 #import "OAIApi.h"
 
@@ -114,7 +115,7 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 ///  code:403 message:"Forbidden"
 ///
 /// @return void
--(NSURLSessionTask*) deleteEmailWithEmailId: (NSString*) emailId
+-(NSURLSessionTask*) deleteEmail1WithEmailId: (NSString*) emailId
     completionHandler: (void (^)(NSError* error)) handler;
 
 
@@ -277,6 +278,40 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 -(NSURLSessionTask*) sendEmailWithInboxId: (NSString*) inboxId
     sendEmailOptions: (OAISendEmailOptions*) sendEmailOptions
     completionHandler: (void (^)(NSError* error)) handler;
+
+
+/// Upload an attachment for sending
+/// When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+///
+/// @param uploadAttachmentOptions uploadOptions
+/// 
+///  code:201 message:"Created",
+///  code:401 message:"Unauthorized",
+///  code:403 message:"Forbidden",
+///  code:404 message:"Not Found"
+///
+/// @return NSString*
+-(NSURLSessionTask*) uploadAttachmentWithUploadAttachmentOptions: (OAIUploadAttachmentOptions*) uploadAttachmentOptions
+    completionHandler: (void (^)(NSString* output, NSError* error)) handler;
+
+
+/// Upload an attachment for sending using Multipart Form
+/// When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
+///
+/// @param file file
+/// @param contentType contentType (optional)
+/// @param filename filename (optional)
+/// 
+///  code:201 message:"Created",
+///  code:401 message:"Unauthorized",
+///  code:403 message:"Forbidden",
+///  code:404 message:"Not Found"
+///
+/// @return NSString*
+-(NSURLSessionTask*) uploadMultipartFormWithFile: (NSURL*) file
+    contentType: (NSString*) contentType
+    filename: (NSString*) filename
+    completionHandler: (void (^)(NSString* output, NSError* error)) handler;
 
 
 

@@ -17,22 +17,19 @@
 
 
 
-@protocol OAIEmailPreview
+@protocol OAIMatchOption
 @end
 
-@interface OAIEmailPreview : OAIObject
+@interface OAIMatchOption : OAIObject
 
-
-@property(nonatomic) NSArray<NSString*>* bcc;
-
-@property(nonatomic) NSArray<NSString*>* cc;
-
-@property(nonatomic) NSDate* created;
-
-@property(nonatomic) NSString* _id;
-
-@property(nonatomic) NSString* subject;
-
-@property(nonatomic) NSArray<NSString*>* to;
+/* The email property to match on. One of SUBJECT, TO, BCC, CC or FROM [optional]
+ */
+@property(nonatomic) NSString* field;
+/* What criteria to apply. CONTAIN or EQUAL. Note CONTAIN is recommended due to some SMTP servers adding new lines [optional]
+ */
+@property(nonatomic) NSString* should;
+/* The value to compare to the field using EQUAL or CONTAIN [optional]
+ */
+@property(nonatomic) NSString* value;
 
 @end

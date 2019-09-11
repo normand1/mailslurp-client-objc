@@ -14,25 +14,19 @@
 */
 
 
+#import "OAIMatchOption.h"
+@protocol OAIMatchOption;
+@class OAIMatchOption;
 
 
 
-@protocol OAIEmailPreview
+@protocol OAIMatchOptions
 @end
 
-@interface OAIEmailPreview : OAIObject
+@interface OAIMatchOptions : OAIObject
 
-
-@property(nonatomic) NSArray<NSString*>* bcc;
-
-@property(nonatomic) NSArray<NSString*>* cc;
-
-@property(nonatomic) NSDate* created;
-
-@property(nonatomic) NSString* _id;
-
-@property(nonatomic) NSString* subject;
-
-@property(nonatomic) NSArray<NSString*>* to;
+/* 1 or more match options. Options are additive so if one does not match the email is excluded from results [optional]
+ */
+@property(nonatomic) NSArray<OAIMatchOption>* matches;
 
 @end
