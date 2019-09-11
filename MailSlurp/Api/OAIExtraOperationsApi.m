@@ -1201,10 +1201,10 @@ NSInteger kOAIExtraOperationsApiMissingParamErrorCode = 234513;
 /// When sending emails with attachments first upload each attachment with this endpoint. Record the returned attachment IDs. Then use these attachment IDs in the SendEmailOptions when sending an email. This means that attachments can easily be reused.
 ///  @param uploadAttachmentOptions uploadOptions 
 ///
-///  @returns NSString*
+///  @returns NSArray<NSString*>*
 ///
 -(NSURLSessionTask*) uploadAttachmentWithUploadAttachmentOptions: (OAIUploadAttachmentOptions*) uploadAttachmentOptions
-    completionHandler: (void (^)(NSString* output, NSError* error)) handler {
+    completionHandler: (void (^)(NSArray<NSString*>* output, NSError* error)) handler {
     // verify the required parameter 'uploadAttachmentOptions' is set
     if (uploadAttachmentOptions == nil) {
         NSParameterAssert(uploadAttachmentOptions);
@@ -1254,10 +1254,10 @@ NSInteger kOAIExtraOperationsApiMissingParamErrorCode = 234513;
                               authSettings: authSettings
                         requestContentType: requestContentType
                        responseContentType: responseContentType
-                              responseType: @"NSString*"
+                              responseType: @"NSArray<NSString*>*"
                            completionBlock: ^(id data, NSError *error) {
                                 if(handler) {
-                                    handler((NSString*)data, error);
+                                    handler((NSArray<NSString*>*)data, error);
                                 }
                             }];
 }
@@ -1271,12 +1271,12 @@ NSInteger kOAIExtraOperationsApiMissingParamErrorCode = 234513;
 ///
 ///  @param filename filename (optional)
 ///
-///  @returns NSString*
+///  @returns NSArray<NSString*>*
 ///
 -(NSURLSessionTask*) uploadMultipartFormWithFile: (NSURL*) file
     contentType: (NSString*) contentType
     filename: (NSString*) filename
-    completionHandler: (void (^)(NSString* output, NSError* error)) handler {
+    completionHandler: (void (^)(NSArray<NSString*>* output, NSError* error)) handler {
     // verify the required parameter 'file' is set
     if (file == nil) {
         NSParameterAssert(file);
@@ -1332,10 +1332,10 @@ NSInteger kOAIExtraOperationsApiMissingParamErrorCode = 234513;
                               authSettings: authSettings
                         requestContentType: requestContentType
                        responseContentType: responseContentType
-                              responseType: @"NSString*"
+                              responseType: @"NSArray<NSString*>*"
                            completionBlock: ^(id data, NSError *error) {
                                 if(handler) {
-                                    handler((NSString*)data, error);
+                                    handler((NSArray<NSString*>*)data, error);
                                 }
                             }];
 }

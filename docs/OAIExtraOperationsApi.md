@@ -938,7 +938,7 @@ void (empty response body)
 # **uploadAttachment**
 ```objc
 -(NSURLSessionTask*) uploadAttachmentWithUploadAttachmentOptions: (OAIUploadAttachmentOptions*) uploadAttachmentOptions
-        completionHandler: (void (^)(NSString* output, NSError* error)) handler;
+        completionHandler: (void (^)(NSArray<NSString*>* output, NSError* error)) handler;
 ```
 
 Upload an attachment for sending
@@ -961,7 +961,7 @@ OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
 
 // Upload an attachment for sending
 [apiInstance uploadAttachmentWithUploadAttachmentOptions:uploadAttachmentOptions
-          completionHandler: ^(NSString* output, NSError* error) {
+          completionHandler: ^(NSArray<NSString*>* output, NSError* error) {
                         if (output) {
                             NSLog(@"%@", output);
                         }
@@ -979,7 +979,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**NSString***
+**NSArray<NSString*>***
 
 ### Authorization
 
@@ -997,7 +997,7 @@ Name | Type | Description  | Notes
 -(NSURLSessionTask*) uploadMultipartFormWithFile: (NSURL*) file
     contentType: (NSString*) contentType
     filename: (NSString*) filename
-        completionHandler: (void (^)(NSString* output, NSError* error)) handler;
+        completionHandler: (void (^)(NSArray<NSString*>* output, NSError* error)) handler;
 ```
 
 Upload an attachment for sending using Multipart Form
@@ -1024,7 +1024,7 @@ OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
 [apiInstance uploadMultipartFormWithFile:file
               contentType:contentType
               filename:filename
-          completionHandler: ^(NSString* output, NSError* error) {
+          completionHandler: ^(NSArray<NSString*>* output, NSError* error) {
                         if (output) {
                             NSLog(@"%@", output);
                         }
@@ -1044,7 +1044,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**NSString***
+**NSArray<NSString*>***
 
 ### Authorization
 

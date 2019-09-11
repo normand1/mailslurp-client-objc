@@ -290,9 +290,9 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 ///  code:403 message:"Forbidden",
 ///  code:404 message:"Not Found"
 ///
-/// @return NSString*
+/// @return NSArray<NSString*>*
 -(NSURLSessionTask*) uploadAttachmentWithUploadAttachmentOptions: (OAIUploadAttachmentOptions*) uploadAttachmentOptions
-    completionHandler: (void (^)(NSString* output, NSError* error)) handler;
+    completionHandler: (void (^)(NSArray<NSString*>* output, NSError* error)) handler;
 
 
 /// Upload an attachment for sending using Multipart Form
@@ -307,11 +307,11 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 ///  code:403 message:"Forbidden",
 ///  code:404 message:"Not Found"
 ///
-/// @return NSString*
+/// @return NSArray<NSString*>*
 -(NSURLSessionTask*) uploadMultipartFormWithFile: (NSURL*) file
     contentType: (NSString*) contentType
     filename: (NSString*) filename
-    completionHandler: (void (^)(NSString* output, NSError* error)) handler;
+    completionHandler: (void (^)(NSArray<NSString*>* output, NSError* error)) handler;
 
 
 
