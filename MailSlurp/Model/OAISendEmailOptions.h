@@ -22,13 +22,13 @@
 
 @interface OAISendEmailOptions : OAIObject
 
-/* Optional list of attachment IDs to send with this email [optional]
+/* Optional list of attachment IDs to send with this email. You must first upload each attachment separately in order to obtain attachment IDs [optional]
  */
 @property(nonatomic) NSArray<NSString*>* attachments;
 /* Optional list of bcc destination email addresses [optional]
  */
 @property(nonatomic) NSArray<NSString*>* bcc;
-/* Contents of email [optional]
+/* Contents of email. If HTML set isHTML to true. You can use moustache templates here if you provide a templateVariables option [optional]
  */
 @property(nonatomic) NSString* body;
 /* Optional list of cc destination email addresses [optional]
@@ -48,6 +48,9 @@
 /* Optional email subject line [optional]
  */
 @property(nonatomic) NSString* subject;
+/* Optional map of template variables. Will replace moustache syntax variables in subject or body with the associated values [optional]
+ */
+@property(nonatomic) NSObject* templateVariables;
 /* List of destination email addresses. Even single recipients must be in array form. 
  */
 @property(nonatomic) NSArray<NSString*>* to;

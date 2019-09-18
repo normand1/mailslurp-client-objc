@@ -36,11 +36,15 @@
 
 @property(nonatomic) NSArray<NSString*>* cc;
 
+@property(nonatomic) NSString* charset;
+
 @property(nonatomic) NSDate* createdAt;
 
 @property(nonatomic) NSString* from;
 
 @property(nonatomic) NSDictionary<NSString*, NSString*>* headers;
+
+@property(nonatomic) NSNumber* html;
 
 @property(nonatomic) NSString* _id;
 

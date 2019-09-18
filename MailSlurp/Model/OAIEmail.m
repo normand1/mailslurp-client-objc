@@ -17,7 +17,7 @@
  * This method is used by `JSONModel`.
  */
 + (JSONKeyMapper *)keyMapper {
-  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"analysis": @"analysis", @"attachments": @"attachments", @"bcc": @"bcc", @"body": @"body", @"cc": @"cc", @"createdAt": @"createdAt", @"from": @"from", @"headers": @"headers", @"_id": @"id", @"inboxId": @"inboxId", @"rawUrl": @"rawUrl", @"subject": @"subject", @"to": @"to", @"updatedAt": @"updatedAt", @"userId": @"userId" }];
+  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"analysis": @"analysis", @"attachments": @"attachments", @"bcc": @"bcc", @"body": @"body", @"cc": @"cc", @"charset": @"charset", @"createdAt": @"createdAt", @"from": @"from", @"headers": @"headers", @"html": @"html", @"_id": @"id", @"inboxId": @"inboxId", @"rawUrl": @"rawUrl", @"subject": @"subject", @"to": @"to", @"updatedAt": @"updatedAt", @"userId": @"userId" }];
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[@"analysis", @"attachments", @"bcc", @"body", @"cc", @"from", @"headers", @"rawUrl", @"subject", ];
+  NSArray *optionalProperties = @[@"analysis", @"attachments", @"bcc", @"body", @"cc", @"charset", @"from", @"headers", @"html", @"rawUrl", @"subject", ];
   return [optionalProperties containsObject:propertyName];
 }
 

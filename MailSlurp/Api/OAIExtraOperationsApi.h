@@ -3,6 +3,7 @@
 #import "OAICreateWebhookOptions.h"
 #import "OAIEmail.h"
 #import "OAIEmailPreview.h"
+#import "OAIForwardEmailOptions.h"
 #import "OAIInbox.h"
 #import "OAISendEmailOptions.h"
 #import "OAIUploadAttachmentOptions.h"
@@ -163,6 +164,23 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 /// @return void
 -(NSURLSessionTask*) downloadAttachmentWithAttachmentId: (NSString*) attachmentId
     emailId: (NSString*) emailId
+    completionHandler: (void (^)(NSError* error)) handler;
+
+
+/// Forward Email
+/// Forward email content to given recipients
+///
+/// @param emailId emailId
+/// @param forwardEmailOptions forwardEmailOptions
+/// 
+///  code:201 message:"Created",
+///  code:401 message:"Unauthorized",
+///  code:403 message:"Forbidden",
+///  code:404 message:"Not Found"
+///
+/// @return void
+-(NSURLSessionTask*) forwardEmailWithEmailId: (NSString*) emailId
+    forwardEmailOptions: (OAIForwardEmailOptions*) forwardEmailOptions
     completionHandler: (void (^)(NSError* error)) handler;
 
 

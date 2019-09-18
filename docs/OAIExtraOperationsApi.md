@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**deleteInbox**](OAIExtraOperationsApi.md#deleteinbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 [**deleteWebhook**](OAIExtraOperationsApi.md#deletewebhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 [**downloadAttachment**](OAIExtraOperationsApi.md#downloadattachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
+[**forwardEmail**](OAIExtraOperationsApi.md#forwardemail) | **POST** /emails/{emailId}/forward | Forward Email
 [**getEmail**](OAIExtraOperationsApi.md#getemail) | **GET** /emails/{emailId} | Get Email Content
 [**getEmails**](OAIExtraOperationsApi.md#getemails) | **GET** /inboxes/{inboxId}/emails | List Emails in an Inbox / EmailAddress
 [**getInbox**](OAIExtraOperationsApi.md#getinbox) | **GET** /inboxes/{inboxId} | Get Inbox / EmailAddress
@@ -521,6 +522,64 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **forwardEmail**
+```objc
+-(NSURLSessionTask*) forwardEmailWithEmailId: (NSString*) emailId
+    forwardEmailOptions: (OAIForwardEmailOptions*) forwardEmailOptions
+        completionHandler: (void (^)(NSError* error)) handler;
+```
+
+Forward Email
+
+Forward email content to given recipients
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSString* emailId = @"emailId_example"; // emailId
+OAIForwardEmailOptions* forwardEmailOptions = [[OAIForwardEmailOptions alloc] init]; // forwardEmailOptions
+
+OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
+
+// Forward Email
+[apiInstance forwardEmailWithEmailId:emailId
+              forwardEmailOptions:forwardEmailOptions
+          completionHandler: ^(NSError* error) {
+                        if (error) {
+                            NSLog(@"Error calling OAIExtraOperationsApi->forwardEmail: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **emailId** | [**NSString***](.md)| emailId | 
+ **forwardEmailOptions** | [**OAIForwardEmailOptions***](OAIForwardEmailOptions.md)| forwardEmailOptions | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

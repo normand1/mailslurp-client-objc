@@ -8,9 +8,11 @@ Name | Type | Description | Notes
 **bcc** | **NSArray&lt;NSString*&gt;*** |  | [optional] 
 **body** | **NSString*** |  | [optional] 
 **cc** | **NSArray&lt;NSString*&gt;*** |  | [optional] 
+**charset** | **NSString*** |  | [optional] 
 **createdAt** | **NSDate*** |  | 
 **from** | **NSString*** |  | [optional] 
 **headers** | **NSDictionary&lt;NSString*, NSString*&gt;*** |  | [optional] 
+**html** | **NSNumber*** |  | [optional] 
 **_id** | **NSString*** |  | 
 **inboxId** | **NSString*** |  | 
 **rawUrl** | **NSString*** |  | [optional] 

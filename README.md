@@ -48,6 +48,7 @@ Import the following:
 #import <MailSlurp/OAIEmail.h>
 #import <MailSlurp/OAIEmailAnalysis.h>
 #import <MailSlurp/OAIEmailPreview.h>
+#import <MailSlurp/OAIForwardEmailOptions.h>
 #import <MailSlurp/OAIInbox.h>
 #import <MailSlurp/OAIMatchOption.h>
 #import <MailSlurp/OAIMatchOptions.h>
@@ -118,6 +119,7 @@ Class | Method | HTTP request | Description
 *OAIExtraOperationsApi* | [**deleteInbox**](docs/OAIExtraOperationsApi.md#deleteinbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 *OAIExtraOperationsApi* | [**deleteWebhook**](docs/OAIExtraOperationsApi.md#deletewebhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 *OAIExtraOperationsApi* | [**downloadAttachment**](docs/OAIExtraOperationsApi.md#downloadattachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
+*OAIExtraOperationsApi* | [**forwardEmail**](docs/OAIExtraOperationsApi.md#forwardemail) | **POST** /emails/{emailId}/forward | Forward Email
 *OAIExtraOperationsApi* | [**getEmail**](docs/OAIExtraOperationsApi.md#getemail) | **GET** /emails/{emailId} | Get Email Content
 *OAIExtraOperationsApi* | [**getEmails**](docs/OAIExtraOperationsApi.md#getemails) | **GET** /inboxes/{inboxId}/emails | List Emails in an Inbox / EmailAddress
 *OAIExtraOperationsApi* | [**getInbox**](docs/OAIExtraOperationsApi.md#getinbox) | **GET** /inboxes/{inboxId} | Get Inbox / EmailAddress
@@ -137,6 +139,7 @@ Class | Method | HTTP request | Description
  - [OAIEmail](docs/OAIEmail.md)
  - [OAIEmailAnalysis](docs/OAIEmailAnalysis.md)
  - [OAIEmailPreview](docs/OAIEmailPreview.md)
+ - [OAIForwardEmailOptions](docs/OAIForwardEmailOptions.md)
  - [OAIInbox](docs/OAIInbox.md)
  - [OAIMatchOption](docs/OAIMatchOption.md)
  - [OAIMatchOptions](docs/OAIMatchOptions.md)

@@ -5,6 +5,7 @@
 #import "OAICreateWebhookOptions.h"
 #import "OAIEmail.h"
 #import "OAIEmailPreview.h"
+#import "OAIForwardEmailOptions.h"
 #import "OAIInbox.h"
 #import "OAISendEmailOptions.h"
 #import "OAIUploadAttachmentOptions.h"
@@ -680,6 +681,89 @@ NSInteger kOAIExtraOperationsApiMissingParamErrorCode = 234513;
 
     return [self.apiClient requestWithPath: resourcePath
                                     method: @"GET"
+                                pathParams: pathParams
+                               queryParams: queryParams
+                                formParams: formParams
+                                     files: localVarFiles
+                                      body: bodyParam
+                              headerParams: headerParams
+                              authSettings: authSettings
+                        requestContentType: requestContentType
+                       responseContentType: responseContentType
+                              responseType: nil
+                           completionBlock: ^(id data, NSError *error) {
+                                if(handler) {
+                                    handler(error);
+                                }
+                            }];
+}
+
+///
+/// Forward Email
+/// Forward email content to given recipients
+///  @param emailId emailId 
+///
+///  @param forwardEmailOptions forwardEmailOptions 
+///
+///  @returns void
+///
+-(NSURLSessionTask*) forwardEmailWithEmailId: (NSString*) emailId
+    forwardEmailOptions: (OAIForwardEmailOptions*) forwardEmailOptions
+    completionHandler: (void (^)(NSError* error)) handler {
+    // verify the required parameter 'emailId' is set
+    if (emailId == nil) {
+        NSParameterAssert(emailId);
+        if(handler) {
+            NSDictionary * userInfo = @{NSLocalizedDescriptionKey : [NSString stringWithFormat:NSLocalizedString(@"Missing required parameter '%@'", nil),@"emailId"] };
+            NSError* error = [NSError errorWithDomain:kOAIExtraOperationsApiErrorDomain code:kOAIExtraOperationsApiMissingParamErrorCode userInfo:userInfo];
+            handler(error);
+        }
+        return nil;
+    }
+
+    // verify the required parameter 'forwardEmailOptions' is set
+    if (forwardEmailOptions == nil) {
+        NSParameterAssert(forwardEmailOptions);
+        if(handler) {
+            NSDictionary * userInfo = @{NSLocalizedDescriptionKey : [NSString stringWithFormat:NSLocalizedString(@"Missing required parameter '%@'", nil),@"forwardEmailOptions"] };
+            NSError* error = [NSError errorWithDomain:kOAIExtraOperationsApiErrorDomain code:kOAIExtraOperationsApiMissingParamErrorCode userInfo:userInfo];
+            handler(error);
+        }
+        return nil;
+    }
+
+    NSMutableString* resourcePath = [NSMutableString stringWithFormat:@"/emails/{emailId}/forward"];
+
+    NSMutableDictionary *pathParams = [[NSMutableDictionary alloc] init];
+    if (emailId != nil) {
+        pathParams[@"emailId"] = emailId;
+    }
+
+    NSMutableDictionary* queryParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary* headerParams = [NSMutableDictionary dictionaryWithDictionary:self.apiClient.configuration.defaultHeaders];
+    [headerParams addEntriesFromDictionary:self.defaultHeaders];
+    // HTTP header `Accept`
+    NSString *acceptHeader = [self.apiClient.sanitizer selectHeaderAccept:@[]];
+    if(acceptHeader.length > 0) {
+        headerParams[@"Accept"] = acceptHeader;
+    }
+
+    // response content type
+    NSString *responseContentType = [[acceptHeader componentsSeparatedByString:@", "] firstObject] ?: @"";
+
+    // request content type
+    NSString *requestContentType = [self.apiClient.sanitizer selectHeaderContentType:@[@"application/json"]];
+
+    // Authentication setting
+    NSArray *authSettings = @[@"API_KEY"];
+
+    id bodyParam = nil;
+    NSMutableDictionary *formParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *localVarFiles = [[NSMutableDictionary alloc] init];
+    bodyParam = forwardEmailOptions;
+
+    return [self.apiClient requestWithPath: resourcePath
+                                    method: @"POST"
                                 pathParams: pathParams
                                queryParams: queryParams
                                 formParams: formParams
