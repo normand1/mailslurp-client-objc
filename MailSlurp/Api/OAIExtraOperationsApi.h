@@ -1,6 +1,9 @@
 #import <Foundation/Foundation.h>
 #import "OAIBulkSendEmailOptions.h"
+#import "OAICreateDomainOptions.h"
 #import "OAICreateWebhookOptions.h"
+#import "OAIDomainPlusVerificationRecordsAndStatus.h"
+#import "OAIDomainPreview.h"
 #import "OAIEmail.h"
 #import "OAIEmailPreview.h"
 #import "OAIForwardEmailOptions.h"
@@ -75,9 +78,25 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
     completionHandler: (void (^)(NSError* error)) handler;
 
 
-/// Create an Inbox (email address)
-/// Create a new inbox and ephemeral email address to send and receive from. This is a necessary step before sending or receiving emails. The response contains the inbox's ID and its associated email address. It is recommended that you create a new inbox during each test method so that it is unique and empty
+/// Create Domain
+/// Link a domain that you own with MailSlurp so you can create inboxes with it. Returns DNS records used for validation. You must add these verification records to your host provider's DNS setup to verify the domain.
 ///
+/// @param createDomainOptions domainOptions
+/// 
+///  code:201 message:"Created",
+///  code:401 message:"Unauthorized",
+///  code:403 message:"Forbidden",
+///  code:404 message:"Not Found"
+///
+/// @return OAIDomainPlusVerificationRecordsAndStatus*
+-(NSURLSessionTask*) createDomainWithCreateDomainOptions: (OAICreateDomainOptions*) createDomainOptions
+    completionHandler: (void (^)(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error)) handler;
+
+
+/// Create an Inbox (email address)
+/// Create a new inbox and with a ranmdomized email address to send and receive from. Pass emailAddress parameter if you wish to use a specific email address. Creating an inbox is required before sending or receiving emails. If writing tests it is recommended that you create a new inbox during each test method so that it is unique and empty. 
+///
+/// @param emailAddress Optional email address including domain you wish inbox to use (eg: test123@mydomain.com). Only supports domains that you have registered and verified with MailSlurp using dashboard or &#x60;createDomain&#x60; method. (optional)
 /// 
 ///  code:201 message:"Created",
 ///  code:401 message:"Unauthorized",
@@ -85,8 +104,8 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 ///  code:404 message:"Not Found"
 ///
 /// @return OAIInbox*
--(NSURLSessionTask*) createInboxWithCompletionHandler: 
-    (void (^)(OAIInbox* output, NSError* error)) handler;
+-(NSURLSessionTask*) createInboxWithEmailAddress: (NSString*) emailAddress
+    completionHandler: (void (^)(OAIInbox* output, NSError* error)) handler;
 
 
 /// Attach a WebHook URL to an inbox
@@ -104,6 +123,21 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 -(NSURLSessionTask*) createWebhookWithInboxId: (NSString*) inboxId
     createWebhookOptions: (OAICreateWebhookOptions*) createWebhookOptions
     completionHandler: (void (^)(OAIWebhook* output, NSError* error)) handler;
+
+
+/// Delete a domain
+/// 
+///
+/// @param _id id
+/// 
+///  code:204 message:"No Content",
+///  code:401 message:"Unauthorized",
+///  code:403 message:"Forbidden",
+///  code:410 message:"Gone"
+///
+/// @return void
+-(NSURLSessionTask*) deleteDomainWithId: (NSString*) _id
+    completionHandler: (void (^)(NSError* error)) handler;
 
 
 /// Delete Email
@@ -182,6 +216,35 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 -(NSURLSessionTask*) forwardEmailWithEmailId: (NSString*) emailId
     forwardEmailOptions: (OAIForwardEmailOptions*) forwardEmailOptions
     completionHandler: (void (^)(NSError* error)) handler;
+
+
+/// Get a domain
+/// Returns domain verification status and tokens
+///
+/// @param _id id
+/// 
+///  code:200 message:"OK",
+///  code:401 message:"Unauthorized",
+///  code:403 message:"Forbidden",
+///  code:404 message:"Not Found"
+///
+/// @return OAIDomainPlusVerificationRecordsAndStatus*
+-(NSURLSessionTask*) getDomainWithId: (NSString*) _id
+    completionHandler: (void (^)(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error)) handler;
+
+
+/// Get domains
+/// 
+///
+/// 
+///  code:200 message:"OK",
+///  code:401 message:"Unauthorized",
+///  code:403 message:"Forbidden",
+///  code:404 message:"Not Found"
+///
+/// @return NSArray<OAIDomainPreview>*
+-(NSURLSessionTask*) getDomainsWithCompletionHandler: 
+    (void (^)(NSArray<OAIDomainPreview>* output, NSError* error)) handler;
 
 
 /// Get Email Content

@@ -1,6 +1,6 @@
-#import "OAIEmailPreview.h"
+#import "OAICreateDomainOptions.h"
 
-@implementation OAIEmailPreview
+@implementation OAICreateDomainOptions
 
 - (instancetype)init {
   self = [super init];
@@ -17,7 +17,7 @@
  * This method is used by `JSONModel`.
  */
 + (JSONKeyMapper *)keyMapper {
-  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"bcc": @"bcc", @"cc": @"cc", @"created": @"created", @"_id": @"id", @"subject": @"subject", @"to": @"to" }];
+  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"domain": @"domain" }];
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[@"bcc", @"cc", @"_id", @"subject", ];
+  NSArray *optionalProperties = @[@"domain"];
   return [optionalProperties containsObject:propertyName];
 }
 

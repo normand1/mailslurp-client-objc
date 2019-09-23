@@ -17,23 +17,24 @@
 
 
 
-@protocol OAIEmailPreview
+@protocol OAIDomainPlusVerificationRecordsAndStatus
 @end
 
-@interface OAIEmailPreview : OAIObject
+@interface OAIDomainPlusVerificationRecordsAndStatus : OAIObject
 
 
-@property(nonatomic) NSArray<NSString*>* bcc;
+@property(nonatomic) NSDate* createdAt;
 
-@property(nonatomic) NSArray<NSString*>* cc;
+@property(nonatomic) NSString* domain;
 
-@property(nonatomic) NSDate* created;
-/* ID of the Email. [optional]
- */
 @property(nonatomic) NSString* _id;
 
-@property(nonatomic) NSString* subject;
+@property(nonatomic) NSDate* updatedAt;
 
-@property(nonatomic) NSArray<NSString*>* to;
+@property(nonatomic) NSString* userId;
+
+@property(nonatomic) NSString* verificationToken;
+
+@property(nonatomic) NSNumber* verified;
 
 @end

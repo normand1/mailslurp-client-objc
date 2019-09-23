@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **bcc** | **NSArray&lt;NSString*&gt;*** |  | [optional] 
 **cc** | **NSArray&lt;NSString*&gt;*** |  | [optional] 
 **created** | **NSDate*** |  | 
-**_id** | **NSString*** |  | 
+**_id** | **NSString*** | ID of the Email. | [optional] 
 **subject** | **NSString*** |  | [optional] 
 **to** | **NSArray&lt;NSString*&gt;*** |  | 
 

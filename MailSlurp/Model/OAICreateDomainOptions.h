@@ -17,23 +17,13 @@
 
 
 
-@protocol OAIEmailPreview
+@protocol OAICreateDomainOptions
 @end
 
-@interface OAIEmailPreview : OAIObject
+@interface OAICreateDomainOptions : OAIObject
 
-
-@property(nonatomic) NSArray<NSString*>* bcc;
-
-@property(nonatomic) NSArray<NSString*>* cc;
-
-@property(nonatomic) NSDate* created;
-/* ID of the Email. [optional]
+/* The top level domain you wish to use with MailSlurp [optional]
  */
-@property(nonatomic) NSString* _id;
-
-@property(nonatomic) NSString* subject;
-
-@property(nonatomic) NSArray<NSString*>* to;
+@property(nonatomic) NSString* domain;
 
 @end

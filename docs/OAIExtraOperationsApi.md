@@ -7,13 +7,17 @@ Method | HTTP request | Description
 [**bulkCreateInboxes**](OAIExtraOperationsApi.md#bulkcreateinboxes) | **POST** /bulk/inboxes | Bulk create Inboxes (email addresses)
 [**bulkDeleteInboxes**](OAIExtraOperationsApi.md#bulkdeleteinboxes) | **DELETE** /bulk/inboxes | Bulk Delete Inboxes
 [**bulkSendEmails**](OAIExtraOperationsApi.md#bulksendemails) | **POST** /bulk/send | Bulk Send Emails
+[**createDomain**](OAIExtraOperationsApi.md#createdomain) | **POST** /domains | Create Domain
 [**createInbox**](OAIExtraOperationsApi.md#createinbox) | **POST** /inboxes | Create an Inbox (email address)
 [**createWebhook**](OAIExtraOperationsApi.md#createwebhook) | **POST** /inboxes/{inboxId}/webhooks | Attach a WebHook URL to an inbox
+[**deleteDomain**](OAIExtraOperationsApi.md#deletedomain) | **DELETE** /domains/{id} | Delete a domain
 [**deleteEmail1**](OAIExtraOperationsApi.md#deleteemail1) | **DELETE** /emails/{emailId} | Delete Email
 [**deleteInbox**](OAIExtraOperationsApi.md#deleteinbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 [**deleteWebhook**](OAIExtraOperationsApi.md#deletewebhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 [**downloadAttachment**](OAIExtraOperationsApi.md#downloadattachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
 [**forwardEmail**](OAIExtraOperationsApi.md#forwardemail) | **POST** /emails/{emailId}/forward | Forward Email
+[**getDomain**](OAIExtraOperationsApi.md#getdomain) | **GET** /domains/{id} | Get a domain
+[**getDomains**](OAIExtraOperationsApi.md#getdomains) | **GET** /domains | Get domains
 [**getEmail**](OAIExtraOperationsApi.md#getemail) | **GET** /emails/{emailId} | Get Email Content
 [**getEmails**](OAIExtraOperationsApi.md#getemails) | **GET** /inboxes/{inboxId}/emails | List Emails in an Inbox / EmailAddress
 [**getInbox**](OAIExtraOperationsApi.md#getinbox) | **GET** /inboxes/{inboxId} | Get Inbox / EmailAddress
@@ -190,15 +194,15 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **createInbox**
+# **createDomain**
 ```objc
--(NSURLSessionTask*) createInboxWithCompletionHandler: 
-        (void (^)(OAIInbox* output, NSError* error)) handler;
+-(NSURLSessionTask*) createDomainWithCreateDomainOptions: (OAICreateDomainOptions*) createDomainOptions
+        completionHandler: (void (^)(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error)) handler;
 ```
 
-Create an Inbox (email address)
+Create Domain
 
-Create a new inbox and ephemeral email address to send and receive from. This is a necessary step before sending or receiving emails. The response contains the inbox's ID and its associated email address. It is recommended that you create a new inbox during each test method so that it is unique and empty
+Link a domain that you own with MailSlurp so you can create inboxes with it. Returns DNS records used for validation. You must add these verification records to your host provider's DNS setup to verify the domain.
 
 ### Example 
 ```objc
@@ -210,12 +214,70 @@ OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
 
 
+OAICreateDomainOptions* createDomainOptions = [[OAICreateDomainOptions alloc] init]; // domainOptions
+
+OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
+
+// Create Domain
+[apiInstance createDomainWithCreateDomainOptions:createDomainOptions
+          completionHandler: ^(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIExtraOperationsApi->createDomain: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createDomainOptions** | [**OAICreateDomainOptions***](OAICreateDomainOptions.md)| domainOptions | 
+
+### Return type
+
+[**OAIDomainPlusVerificationRecordsAndStatus***](OAIDomainPlusVerificationRecordsAndStatus.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **createInbox**
+```objc
+-(NSURLSessionTask*) createInboxWithEmailAddress: (NSString*) emailAddress
+        completionHandler: (void (^)(OAIInbox* output, NSError* error)) handler;
+```
+
+Create an Inbox (email address)
+
+Create a new inbox and with a ranmdomized email address to send and receive from. Pass emailAddress parameter if you wish to use a specific email address. Creating an inbox is required before sending or receiving emails. If writing tests it is recommended that you create a new inbox during each test method so that it is unique and empty. 
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSString* emailAddress = @"emailAddress_example"; // Optional email address including domain you wish inbox to use (eg: test123@mydomain.com). Only supports domains that you have registered and verified with MailSlurp using dashboard or `createDomain` method. (optional)
 
 OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
 
 // Create an Inbox (email address)
-[apiInstance createInboxWithCompletionHandler: 
-          ^(OAIInbox* output, NSError* error) {
+[apiInstance createInboxWithEmailAddress:emailAddress
+          completionHandler: ^(OAIInbox* output, NSError* error) {
                         if (output) {
                             NSLog(@"%@", output);
                         }
@@ -226,7 +288,10 @@ OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **emailAddress** | **NSString***| Optional email address including domain you wish inbox to use (eg: test123@mydomain.com). Only supports domains that you have registered and verified with MailSlurp using dashboard or &#x60;createDomain&#x60; method. | [optional] 
 
 ### Return type
 
@@ -301,6 +366,58 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: application/json
  - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **deleteDomain**
+```objc
+-(NSURLSessionTask*) deleteDomainWithId: (NSString*) _id
+        completionHandler: (void (^)(NSError* error)) handler;
+```
+
+Delete a domain
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSString* _id = @"_id_example"; // id
+
+OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
+
+// Delete a domain
+[apiInstance deleteDomainWithId:_id
+          completionHandler: ^(NSError* error) {
+                        if (error) {
+                            NSLog(@"Error calling OAIExtraOperationsApi->deleteDomain: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **_id** | [**NSString***](.md)| id | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -581,6 +698,114 @@ void (empty response body)
 
  - **Content-Type**: application/json
  - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDomain**
+```objc
+-(NSURLSessionTask*) getDomainWithId: (NSString*) _id
+        completionHandler: (void (^)(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error)) handler;
+```
+
+Get a domain
+
+Returns domain verification status and tokens
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSString* _id = @"_id_example"; // id
+
+OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
+
+// Get a domain
+[apiInstance getDomainWithId:_id
+          completionHandler: ^(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIExtraOperationsApi->getDomain: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **_id** | [**NSString***](.md)| id | 
+
+### Return type
+
+[**OAIDomainPlusVerificationRecordsAndStatus***](OAIDomainPlusVerificationRecordsAndStatus.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getDomains**
+```objc
+-(NSURLSessionTask*) getDomainsWithCompletionHandler: 
+        (void (^)(NSArray<OAIDomainPreview>* output, NSError* error)) handler;
+```
+
+Get domains
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+
+OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
+
+// Get domains
+[apiInstance getDomainsWithCompletionHandler: 
+          ^(NSArray<OAIDomainPreview>* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIExtraOperationsApi->getDomains: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**NSArray<OAIDomainPreview>***](OAIDomainPreview.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

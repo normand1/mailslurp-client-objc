@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
     s.name             = "MailSlurp"
-    s.version          = "4.9.0"
+    s.version          = "5.1.0"
 
     s.summary          = "MailSlurp API"
     s.description      = <<-DESC

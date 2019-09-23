@@ -17,23 +17,14 @@
 
 
 
-@protocol OAIEmailPreview
+@protocol OAIDomainPreview
 @end
 
-@interface OAIEmailPreview : OAIObject
+@interface OAIDomainPreview : OAIObject
 
 
-@property(nonatomic) NSArray<NSString*>* bcc;
+@property(nonatomic) NSString* domain;
 
-@property(nonatomic) NSArray<NSString*>* cc;
-
-@property(nonatomic) NSDate* created;
-/* ID of the Email. [optional]
- */
 @property(nonatomic) NSString* _id;
-
-@property(nonatomic) NSString* subject;
-
-@property(nonatomic) NSArray<NSString*>* to;
 
 @end

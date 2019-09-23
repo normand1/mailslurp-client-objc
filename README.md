@@ -44,7 +44,10 @@ Import the following:
 // load models
 #import <MailSlurp/OAIBasicAuthOptions.h>
 #import <MailSlurp/OAIBulkSendEmailOptions.h>
+#import <MailSlurp/OAICreateDomainOptions.h>
 #import <MailSlurp/OAICreateWebhookOptions.h>
+#import <MailSlurp/OAIDomainPlusVerificationRecordsAndStatus.h>
+#import <MailSlurp/OAIDomainPreview.h>
 #import <MailSlurp/OAIEmail.h>
 #import <MailSlurp/OAIEmailAnalysis.h>
 #import <MailSlurp/OAIEmailPreview.h>
@@ -113,13 +116,17 @@ Class | Method | HTTP request | Description
 *OAIExtraOperationsApi* | [**bulkCreateInboxes**](docs/OAIExtraOperationsApi.md#bulkcreateinboxes) | **POST** /bulk/inboxes | Bulk create Inboxes (email addresses)
 *OAIExtraOperationsApi* | [**bulkDeleteInboxes**](docs/OAIExtraOperationsApi.md#bulkdeleteinboxes) | **DELETE** /bulk/inboxes | Bulk Delete Inboxes
 *OAIExtraOperationsApi* | [**bulkSendEmails**](docs/OAIExtraOperationsApi.md#bulksendemails) | **POST** /bulk/send | Bulk Send Emails
+*OAIExtraOperationsApi* | [**createDomain**](docs/OAIExtraOperationsApi.md#createdomain) | **POST** /domains | Create Domain
 *OAIExtraOperationsApi* | [**createInbox**](docs/OAIExtraOperationsApi.md#createinbox) | **POST** /inboxes | Create an Inbox (email address)
 *OAIExtraOperationsApi* | [**createWebhook**](docs/OAIExtraOperationsApi.md#createwebhook) | **POST** /inboxes/{inboxId}/webhooks | Attach a WebHook URL to an inbox
+*OAIExtraOperationsApi* | [**deleteDomain**](docs/OAIExtraOperationsApi.md#deletedomain) | **DELETE** /domains/{id} | Delete a domain
 *OAIExtraOperationsApi* | [**deleteEmail1**](docs/OAIExtraOperationsApi.md#deleteemail1) | **DELETE** /emails/{emailId} | Delete Email
 *OAIExtraOperationsApi* | [**deleteInbox**](docs/OAIExtraOperationsApi.md#deleteinbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
 *OAIExtraOperationsApi* | [**deleteWebhook**](docs/OAIExtraOperationsApi.md#deletewebhook) | **DELETE** /inboxes/{inboxId}/webhooks/{webhookId} | Delete and disable a WebHook for an Inbox
 *OAIExtraOperationsApi* | [**downloadAttachment**](docs/OAIExtraOperationsApi.md#downloadattachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
 *OAIExtraOperationsApi* | [**forwardEmail**](docs/OAIExtraOperationsApi.md#forwardemail) | **POST** /emails/{emailId}/forward | Forward Email
+*OAIExtraOperationsApi* | [**getDomain**](docs/OAIExtraOperationsApi.md#getdomain) | **GET** /domains/{id} | Get a domain
+*OAIExtraOperationsApi* | [**getDomains**](docs/OAIExtraOperationsApi.md#getdomains) | **GET** /domains | Get domains
 *OAIExtraOperationsApi* | [**getEmail**](docs/OAIExtraOperationsApi.md#getemail) | **GET** /emails/{emailId} | Get Email Content
 *OAIExtraOperationsApi* | [**getEmails**](docs/OAIExtraOperationsApi.md#getemails) | **GET** /inboxes/{inboxId}/emails | List Emails in an Inbox / EmailAddress
 *OAIExtraOperationsApi* | [**getInbox**](docs/OAIExtraOperationsApi.md#getinbox) | **GET** /inboxes/{inboxId} | Get Inbox / EmailAddress
@@ -135,7 +142,10 @@ Class | Method | HTTP request | Description
 
  - [OAIBasicAuthOptions](docs/OAIBasicAuthOptions.md)
  - [OAIBulkSendEmailOptions](docs/OAIBulkSendEmailOptions.md)
+ - [OAICreateDomainOptions](docs/OAICreateDomainOptions.md)
  - [OAICreateWebhookOptions](docs/OAICreateWebhookOptions.md)
+ - [OAIDomainPlusVerificationRecordsAndStatus](docs/OAIDomainPlusVerificationRecordsAndStatus.md)
+ - [OAIDomainPreview](docs/OAIDomainPreview.md)
  - [OAIEmail](docs/OAIEmail.md)
  - [OAIEmailAnalysis](docs/OAIEmailAnalysis.md)
  - [OAIEmailPreview](docs/OAIEmailPreview.md)
