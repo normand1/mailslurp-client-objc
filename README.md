@@ -51,11 +51,15 @@ Import the following:
 #import <MailSlurp/OAIEmail.h>
 #import <MailSlurp/OAIEmailAnalysis.h>
 #import <MailSlurp/OAIEmailPreview.h>
+#import <MailSlurp/OAIEmailProjection.h>
 #import <MailSlurp/OAIForwardEmailOptions.h>
 #import <MailSlurp/OAIInbox.h>
 #import <MailSlurp/OAIMatchOption.h>
 #import <MailSlurp/OAIMatchOptions.h>
+#import <MailSlurp/OAIPageEmailProjection.h>
+#import <MailSlurp/OAIPageable.h>
 #import <MailSlurp/OAISendEmailOptions.h>
+#import <MailSlurp/OAISort.h>
 #import <MailSlurp/OAIUploadAttachmentOptions.h>
 #import <MailSlurp/OAIWebhook.h>
 // load API classes for accessing endpoints
@@ -129,6 +133,7 @@ Class | Method | HTTP request | Description
 *OAIExtraOperationsApi* | [**getDomains**](docs/OAIExtraOperationsApi.md#getdomains) | **GET** /domains | Get domains
 *OAIExtraOperationsApi* | [**getEmail**](docs/OAIExtraOperationsApi.md#getemail) | **GET** /emails/{emailId} | Get Email Content
 *OAIExtraOperationsApi* | [**getEmails**](docs/OAIExtraOperationsApi.md#getemails) | **GET** /inboxes/{inboxId}/emails | List Emails in an Inbox / EmailAddress
+*OAIExtraOperationsApi* | [**getEmailsPaginated**](docs/OAIExtraOperationsApi.md#getemailspaginated) | **GET** /emails | Get all emails
 *OAIExtraOperationsApi* | [**getInbox**](docs/OAIExtraOperationsApi.md#getinbox) | **GET** /inboxes/{inboxId} | Get Inbox / EmailAddress
 *OAIExtraOperationsApi* | [**getInboxes**](docs/OAIExtraOperationsApi.md#getinboxes) | **GET** /inboxes | List Inboxes / Email Addresses
 *OAIExtraOperationsApi* | [**getRawEmailContents**](docs/OAIExtraOperationsApi.md#getrawemailcontents) | **GET** /emails/{emailId}/raw | Get Raw Email Content
@@ -149,11 +154,15 @@ Class | Method | HTTP request | Description
  - [OAIEmail](docs/OAIEmail.md)
  - [OAIEmailAnalysis](docs/OAIEmailAnalysis.md)
  - [OAIEmailPreview](docs/OAIEmailPreview.md)
+ - [OAIEmailProjection](docs/OAIEmailProjection.md)
  - [OAIForwardEmailOptions](docs/OAIForwardEmailOptions.md)
  - [OAIInbox](docs/OAIInbox.md)
  - [OAIMatchOption](docs/OAIMatchOption.md)
  - [OAIMatchOptions](docs/OAIMatchOptions.md)
+ - [OAIPageEmailProjection](docs/OAIPageEmailProjection.md)
+ - [OAIPageable](docs/OAIPageable.md)
  - [OAISendEmailOptions](docs/OAISendEmailOptions.md)
+ - [OAISort](docs/OAISort.md)
  - [OAIUploadAttachmentOptions](docs/OAIUploadAttachmentOptions.md)
  - [OAIWebhook](docs/OAIWebhook.md)
 

@@ -14,28 +14,28 @@
 */
 
 
+#import "OAISort.h"
+@protocol OAISort;
+@class OAISort;
 
 
 
-@protocol OAIEmailPreview
+@protocol OAIPageable
 @end
 
-@interface OAIEmailPreview : OAIObject
+@interface OAIPageable : OAIObject
 
 
-@property(nonatomic) NSArray<NSString*>* bcc;
+@property(nonatomic) NSNumber* offset;
 
-@property(nonatomic) NSArray<NSString*>* cc;
+@property(nonatomic) NSNumber* pageNumber;
 
-@property(nonatomic) NSDate* created;
+@property(nonatomic) NSNumber* pageSize;
 
-@property(nonatomic) NSDate* createdAt;
-/* ID of the Email. [optional]
- */
-@property(nonatomic) NSString* _id;
+@property(nonatomic) NSNumber* paged;
 
-@property(nonatomic) NSString* subject;
+@property(nonatomic) OAISort* sort;
 
-@property(nonatomic) NSArray<NSString*>* to;
+@property(nonatomic) NSNumber* unpaged;
 
 @end

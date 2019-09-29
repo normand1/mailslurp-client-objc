@@ -8,6 +8,7 @@
 #import "OAIEmailPreview.h"
 #import "OAIForwardEmailOptions.h"
 #import "OAIInbox.h"
+#import "OAIPageEmailProjection.h"
 #import "OAISendEmailOptions.h"
 #import "OAIUploadAttachmentOptions.h"
 #import "OAIWebhook.h"
@@ -189,6 +190,7 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 ///
 /// @param attachmentId attachmentId
 /// @param emailId emailId
+/// @param apiKey Can pass apiKey in url for this request if you wish to download the file in a browser (optional)
 /// 
 ///  code:200 message:"OK",
 ///  code:401 message:"Unauthorized",
@@ -198,6 +200,7 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
 /// @return void
 -(NSURLSessionTask*) downloadAttachmentWithAttachmentId: (NSString*) attachmentId
     emailId: (NSString*) emailId
+    apiKey: (NSString*) apiKey
     completionHandler: (void (^)(NSError* error)) handler;
 
 
@@ -283,6 +286,23 @@ extern NSInteger kOAIExtraOperationsApiMissingParamErrorCode;
     retryTimeout: (NSNumber*) retryTimeout
     since: (NSDate*) since
     completionHandler: (void (^)(NSArray<OAIEmailPreview>* output, NSError* error)) handler;
+
+
+/// Get all emails
+/// Responses are paginated
+///
+/// @param page Optional page index in email list pagination (optional) (default to @0)
+/// @param size Optional page size in email list pagination (optional) (default to @20)
+/// 
+///  code:200 message:"OK",
+///  code:401 message:"Unauthorized",
+///  code:403 message:"Forbidden",
+///  code:404 message:"Not Found"
+///
+/// @return OAIPageEmailProjection*
+-(NSURLSessionTask*) getEmailsPaginatedWithPage: (NSNumber*) page
+    size: (NSNumber*) size
+    completionHandler: (void (^)(OAIPageEmailProjection* output, NSError* error)) handler;
 
 
 /// Get Inbox / EmailAddress

@@ -15,7 +15,7 @@
 */
 
 
-static NSString * const kOAIAPIVersion = @"5.1.0";
+static NSString * const kOAIAPIVersion = @"5.2.0";
 
 @protocol OAIConfiguration <NSObject>
 

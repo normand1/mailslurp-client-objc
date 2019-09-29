@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[];
+  NSArray *optionalProperties = @[@"dkimVerdict", @"dmarcVerdict", @"spamVerdict", @"spfVerdict", @"virusVerdict"];
   return [optionalProperties containsObject:propertyName];
 }
 

@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**getDomains**](OAIExtraOperationsApi.md#getdomains) | **GET** /domains | Get domains
 [**getEmail**](OAIExtraOperationsApi.md#getemail) | **GET** /emails/{emailId} | Get Email Content
 [**getEmails**](OAIExtraOperationsApi.md#getemails) | **GET** /inboxes/{inboxId}/emails | List Emails in an Inbox / EmailAddress
+[**getEmailsPaginated**](OAIExtraOperationsApi.md#getemailspaginated) | **GET** /emails | Get all emails
 [**getInbox**](OAIExtraOperationsApi.md#getinbox) | **GET** /inboxes/{inboxId} | Get Inbox / EmailAddress
 [**getInboxes**](OAIExtraOperationsApi.md#getinboxes) | **GET** /inboxes | List Inboxes / Email Addresses
 [**getRawEmailContents**](OAIExtraOperationsApi.md#getrawemailcontents) | **GET** /emails/{emailId}/raw | Get Raw Email Content
@@ -589,6 +590,7 @@ void (empty response body)
 ```objc
 -(NSURLSessionTask*) downloadAttachmentWithAttachmentId: (NSString*) attachmentId
     emailId: (NSString*) emailId
+    apiKey: (NSString*) apiKey
         completionHandler: (void (^)(NSError* error)) handler;
 ```
 
@@ -608,12 +610,14 @@ OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
 
 NSString* attachmentId = @"attachmentId_example"; // attachmentId
 NSString* emailId = @"emailId_example"; // emailId
+NSString* apiKey = @"apiKey_example"; // Can pass apiKey in url for this request if you wish to download the file in a browser (optional)
 
 OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
 
 // Get email attachment
 [apiInstance downloadAttachmentWithAttachmentId:attachmentId
               emailId:emailId
+              apiKey:apiKey
           completionHandler: ^(NSError* error) {
                         if (error) {
                             NSLog(@"Error calling OAIExtraOperationsApi->downloadAttachment: %@", error);
@@ -627,6 +631,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **attachmentId** | **NSString***| attachmentId | 
  **emailId** | [**NSString***](.md)| emailId | 
+ **apiKey** | **NSString***| Can pass apiKey in url for this request if you wish to download the file in a browser | [optional] 
 
 ### Return type
 
@@ -939,6 +944,67 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getEmailsPaginated**
+```objc
+-(NSURLSessionTask*) getEmailsPaginatedWithPage: (NSNumber*) page
+    size: (NSNumber*) size
+        completionHandler: (void (^)(OAIPageEmailProjection* output, NSError* error)) handler;
+```
+
+Get all emails
+
+Responses are paginated
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSNumber* page = @0; // Optional page index in email list pagination (optional) (default to @0)
+NSNumber* size = @20; // Optional page size in email list pagination (optional) (default to @20)
+
+OAIExtraOperationsApi*apiInstance = [[OAIExtraOperationsApi alloc] init];
+
+// Get all emails
+[apiInstance getEmailsPaginatedWithPage:page
+              size:size
+          completionHandler: ^(OAIPageEmailProjection* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIExtraOperationsApi->getEmailsPaginated: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **NSNumber***| Optional page index in email list pagination | [optional] [default to @0]
+ **size** | **NSNumber***| Optional page size in email list pagination | [optional] [default to @20]
+
+### Return type
+
+[**OAIPageEmailProjection***](OAIPageEmailProjection.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getInbox**
 ```objc
 -(NSURLSessionTask*) getInboxWithInboxId: (NSString*) inboxId
@@ -1102,7 +1168,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

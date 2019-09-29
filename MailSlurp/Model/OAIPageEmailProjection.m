@@ -1,6 +1,6 @@
-#import "OAIEmailPreview.h"
+#import "OAIPageEmailProjection.h"
 
-@implementation OAIEmailPreview
+@implementation OAIPageEmailProjection
 
 - (instancetype)init {
   self = [super init];
@@ -17,7 +17,7 @@
  * This method is used by `JSONModel`.
  */
 + (JSONKeyMapper *)keyMapper {
-  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"bcc": @"bcc", @"cc": @"cc", @"created": @"created", @"createdAt": @"createdAt", @"_id": @"id", @"subject": @"subject", @"to": @"to" }];
+  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"content": @"content", @"first": @"first", @"last": @"last", @"number": @"number", @"numberOfElements": @"numberOfElements", @"pageable": @"pageable", @"size": @"size", @"sort": @"sort", @"totalElements": @"totalElements", @"totalPages": @"totalPages" }];
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[@"bcc", @"cc", @"_id", @"subject", ];
+  NSArray *optionalProperties = @[@"content", @"first", @"last", @"number", @"numberOfElements", @"pageable", @"size", @"sort", @"totalElements", @"totalPages"];
   return [optionalProperties containsObject:propertyName];
 }
 

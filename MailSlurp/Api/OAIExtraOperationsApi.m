@@ -10,6 +10,7 @@
 #import "OAIEmailPreview.h"
 #import "OAIForwardEmailOptions.h"
 #import "OAIInbox.h"
+#import "OAIPageEmailProjection.h"
 #import "OAISendEmailOptions.h"
 #import "OAIUploadAttachmentOptions.h"
 #import "OAIWebhook.h"
@@ -762,10 +763,13 @@ NSInteger kOAIExtraOperationsApiMissingParamErrorCode = 234513;
 ///
 ///  @param emailId emailId 
 ///
+///  @param apiKey Can pass apiKey in url for this request if you wish to download the file in a browser (optional)
+///
 ///  @returns void
 ///
 -(NSURLSessionTask*) downloadAttachmentWithAttachmentId: (NSString*) attachmentId
     emailId: (NSString*) emailId
+    apiKey: (NSString*) apiKey
     completionHandler: (void (^)(NSError* error)) handler {
     // verify the required parameter 'attachmentId' is set
     if (attachmentId == nil) {
@@ -800,6 +804,9 @@ NSInteger kOAIExtraOperationsApiMissingParamErrorCode = 234513;
     }
 
     NSMutableDictionary* queryParams = [[NSMutableDictionary alloc] init];
+    if (apiKey != nil) {
+        queryParams[@"apiKey"] = apiKey;
+    }
     NSMutableDictionary* headerParams = [NSMutableDictionary dictionaryWithDictionary:self.apiClient.configuration.defaultHeaders];
     [headerParams addEntriesFromDictionary:self.defaultHeaders];
     // HTTP header `Accept`
@@ -1204,6 +1211,69 @@ NSInteger kOAIExtraOperationsApiMissingParamErrorCode = 234513;
 }
 
 ///
+/// Get all emails
+/// Responses are paginated
+///  @param page Optional page index in email list pagination (optional, default to @0)
+///
+///  @param size Optional page size in email list pagination (optional, default to @20)
+///
+///  @returns OAIPageEmailProjection*
+///
+-(NSURLSessionTask*) getEmailsPaginatedWithPage: (NSNumber*) page
+    size: (NSNumber*) size
+    completionHandler: (void (^)(OAIPageEmailProjection* output, NSError* error)) handler {
+    NSMutableString* resourcePath = [NSMutableString stringWithFormat:@"/emails"];
+
+    NSMutableDictionary *pathParams = [[NSMutableDictionary alloc] init];
+
+    NSMutableDictionary* queryParams = [[NSMutableDictionary alloc] init];
+    if (page != nil) {
+        queryParams[@"page"] = page;
+    }
+    if (size != nil) {
+        queryParams[@"size"] = size;
+    }
+    NSMutableDictionary* headerParams = [NSMutableDictionary dictionaryWithDictionary:self.apiClient.configuration.defaultHeaders];
+    [headerParams addEntriesFromDictionary:self.defaultHeaders];
+    // HTTP header `Accept`
+    NSString *acceptHeader = [self.apiClient.sanitizer selectHeaderAccept:@[@"application/json"]];
+    if(acceptHeader.length > 0) {
+        headerParams[@"Accept"] = acceptHeader;
+    }
+
+    // response content type
+    NSString *responseContentType = [[acceptHeader componentsSeparatedByString:@", "] firstObject] ?: @"";
+
+    // request content type
+    NSString *requestContentType = [self.apiClient.sanitizer selectHeaderContentType:@[]];
+
+    // Authentication setting
+    NSArray *authSettings = @[@"API_KEY"];
+
+    id bodyParam = nil;
+    NSMutableDictionary *formParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *localVarFiles = [[NSMutableDictionary alloc] init];
+
+    return [self.apiClient requestWithPath: resourcePath
+                                    method: @"GET"
+                                pathParams: pathParams
+                               queryParams: queryParams
+                                formParams: formParams
+                                     files: localVarFiles
+                                      body: bodyParam
+                              headerParams: headerParams
+                              authSettings: authSettings
+                        requestContentType: requestContentType
+                       responseContentType: responseContentType
+                              responseType: @"OAIPageEmailProjection*"
+                           completionBlock: ^(id data, NSError *error) {
+                                if(handler) {
+                                    handler((OAIPageEmailProjection*)data, error);
+                                }
+                            }];
+}
+
+///
 /// Get Inbox / EmailAddress
 /// Returns an inbox's properties, including its email address and ID.
 ///  @param inboxId inboxId 
@@ -1354,7 +1424,7 @@ NSInteger kOAIExtraOperationsApiMissingParamErrorCode = 234513;
     NSMutableDictionary* headerParams = [NSMutableDictionary dictionaryWithDictionary:self.apiClient.configuration.defaultHeaders];
     [headerParams addEntriesFromDictionary:self.defaultHeaders];
     // HTTP header `Accept`
-    NSString *acceptHeader = [self.apiClient.sanitizer selectHeaderAccept:@[@"application/json"]];
+    NSString *acceptHeader = [self.apiClient.sanitizer selectHeaderAccept:@[@"text/plain"]];
     if(acceptHeader.length > 0) {
         headerParams[@"Accept"] = acceptHeader;
     }

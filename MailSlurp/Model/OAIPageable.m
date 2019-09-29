@@ -1,6 +1,6 @@
-#import "OAIEmailPreview.h"
+#import "OAIPageable.h"
 
-@implementation OAIEmailPreview
+@implementation OAIPageable
 
 - (instancetype)init {
   self = [super init];
@@ -17,7 +17,7 @@
  * This method is used by `JSONModel`.
  */
 + (JSONKeyMapper *)keyMapper {
-  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"bcc": @"bcc", @"cc": @"cc", @"created": @"created", @"createdAt": @"createdAt", @"_id": @"id", @"subject": @"subject", @"to": @"to" }];
+  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"offset": @"offset", @"pageNumber": @"pageNumber", @"pageSize": @"pageSize", @"paged": @"paged", @"sort": @"sort", @"unpaged": @"unpaged" }];
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[@"bcc", @"cc", @"_id", @"subject", ];
+  NSArray *optionalProperties = @[@"offset", @"pageNumber", @"pageSize", @"paged", @"sort", @"unpaged"];
   return [optionalProperties containsObject:propertyName];
 }
 

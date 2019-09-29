@@ -23,6 +23,8 @@
 @interface OAIDomainPreview : OAIObject
 
 
+@property(nonatomic) NSDate* createdAt;
+
 @property(nonatomic) NSString* domain;
 
 @property(nonatomic) NSString* _id;

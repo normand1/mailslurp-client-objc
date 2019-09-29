@@ -17,25 +17,14 @@
 
 
 
-@protocol OAIEmailPreview
+@protocol OAISort
 @end
 
-@interface OAIEmailPreview : OAIObject
+@interface OAISort : OAIObject
 
 
-@property(nonatomic) NSArray<NSString*>* bcc;
+@property(nonatomic) NSNumber* sorted;
 
-@property(nonatomic) NSArray<NSString*>* cc;
-
-@property(nonatomic) NSDate* created;
-
-@property(nonatomic) NSDate* createdAt;
-/* ID of the Email. [optional]
- */
-@property(nonatomic) NSString* _id;
-
-@property(nonatomic) NSString* subject;
-
-@property(nonatomic) NSArray<NSString*>* to;
+@property(nonatomic) NSNumber* unsorted;
 
 @end

@@ -1,6 +1,6 @@
-#import "OAIEmailPreview.h"
+#import "OAISort.h"
 
-@implementation OAIEmailPreview
+@implementation OAISort
 
 - (instancetype)init {
   self = [super init];
@@ -17,7 +17,7 @@
  * This method is used by `JSONModel`.
  */
 + (JSONKeyMapper *)keyMapper {
-  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"bcc": @"bcc", @"cc": @"cc", @"created": @"created", @"createdAt": @"createdAt", @"_id": @"id", @"subject": @"subject", @"to": @"to" }];
+  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"sorted": @"sorted", @"unsorted": @"unsorted" }];
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[@"bcc", @"cc", @"_id", @"subject", ];
+  NSArray *optionalProperties = @[@"sorted", @"unsorted"];
   return [optionalProperties containsObject:propertyName];
 }
 
