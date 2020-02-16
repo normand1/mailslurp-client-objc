@@ -476,7 +476,7 @@ NSInteger kOAICommonActionsControllerApiMissingParamErrorCode = 234513;
 ///
 /// Wait for or fetch the email with a given index in the inbox specified
 /// 
-///  @param inboxId Id of the inbox we are fetching emails from (optional)
+///  @param inboxId Id of the inbox you are fetching emails from (optional)
 ///
 ///  @param index Zero based index of the email to wait for (optional)
 ///

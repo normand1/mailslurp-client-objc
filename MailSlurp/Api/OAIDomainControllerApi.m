@@ -2,7 +2,7 @@
 #import "OAIQueryParamCollection.h"
 #import "OAIApiClient.h"
 #import "OAICreateDomainOptions.h"
-#import "OAIDomainPlusVerificationRecordsAndStatus.h"
+#import "OAIDomainDto.h"
 #import "OAIDomainPreview.h"
 
 
@@ -56,10 +56,10 @@ NSInteger kOAIDomainControllerApiMissingParamErrorCode = 234513;
 /// Link a domain that you own with MailSlurp so you can create email addresses using it. Endpoint returns DNS records used for validation. You must add these verification records to your host provider's DNS setup to verify the domain.
 ///  @param domainOptions domainOptions 
 ///
-///  @returns OAIDomainPlusVerificationRecordsAndStatus*
+///  @returns OAIDomainDto*
 ///
 -(NSURLSessionTask*) createDomainWithDomainOptions: (OAICreateDomainOptions*) domainOptions
-    completionHandler: (void (^)(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error)) handler {
+    completionHandler: (void (^)(OAIDomainDto* output, NSError* error)) handler {
     // verify the required parameter 'domainOptions' is set
     if (domainOptions == nil) {
         NSParameterAssert(domainOptions);
@@ -109,10 +109,10 @@ NSInteger kOAIDomainControllerApiMissingParamErrorCode = 234513;
                               authSettings: authSettings
                         requestContentType: requestContentType
                        responseContentType: responseContentType
-                              responseType: @"OAIDomainPlusVerificationRecordsAndStatus*"
+                              responseType: @"OAIDomainDto*"
                            completionBlock: ^(id data, NSError *error) {
                                 if(handler) {
-                                    handler((OAIDomainPlusVerificationRecordsAndStatus*)data, error);
+                                    handler((OAIDomainDto*)data, error);
                                 }
                             }];
 }
@@ -190,10 +190,10 @@ NSInteger kOAIDomainControllerApiMissingParamErrorCode = 234513;
 /// Returns domain verification status and tokens for a given domain
 ///  @param _id id 
 ///
-///  @returns OAIDomainPlusVerificationRecordsAndStatus*
+///  @returns OAIDomainDto*
 ///
 -(NSURLSessionTask*) getDomainWithId: (NSString*) _id
-    completionHandler: (void (^)(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error)) handler {
+    completionHandler: (void (^)(OAIDomainDto* output, NSError* error)) handler {
     // verify the required parameter '_id' is set
     if (_id == nil) {
         NSParameterAssert(_id);
@@ -245,10 +245,10 @@ NSInteger kOAIDomainControllerApiMissingParamErrorCode = 234513;
                               authSettings: authSettings
                         requestContentType: requestContentType
                        responseContentType: responseContentType
-                              responseType: @"OAIDomainPlusVerificationRecordsAndStatus*"
+                              responseType: @"OAIDomainDto*"
                            completionBlock: ^(id data, NSError *error) {
                                 if(handler) {
-                                    handler((OAIDomainPlusVerificationRecordsAndStatus*)data, error);
+                                    handler((OAIDomainDto*)data, error);
                                 }
                             }];
 }

@@ -14,44 +14,27 @@
 */
 
 
-#import "OAIContactProjection.h"
-#import "OAIPageable.h"
-#import "OAISort.h"
-@protocol OAIContactProjection;
-@class OAIContactProjection;
-@protocol OAIPageable;
-@class OAIPageable;
-@protocol OAISort;
-@class OAISort;
 
 
 
-@protocol OAIPageContactProjection
+@protocol OAIDomainDto
 @end
 
-@interface OAIPageContactProjection : OAIObject
+@interface OAIDomainDto : OAIObject
 
 
-@property(nonatomic) NSArray<OAIContactProjection>* content;
+@property(nonatomic) NSDate* createdAt;
 
-@property(nonatomic) NSNumber* empty;
+@property(nonatomic) NSString* domain;
 
-@property(nonatomic) NSNumber* first;
+@property(nonatomic) NSString* _id;
 
-@property(nonatomic) NSNumber* last;
+@property(nonatomic) NSNumber* isVerified;
 
-@property(nonatomic) NSNumber* number;
+@property(nonatomic) NSDate* updatedAt;
 
-@property(nonatomic) NSNumber* numberOfElements;
+@property(nonatomic) NSString* userId;
 
-@property(nonatomic) OAIPageable* pageable;
-
-@property(nonatomic) NSNumber* size;
-
-@property(nonatomic) OAISort* sort;
-
-@property(nonatomic) NSNumber* totalElements;
-
-@property(nonatomic) NSNumber* totalPages;
+@property(nonatomic) NSString* verificationToken;
 
 @end

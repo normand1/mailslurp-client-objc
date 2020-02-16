@@ -547,8 +547,8 @@ OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
 
 
-NSString* inboxId = @"inboxId_example"; // inboxId
-OAISendEmailOptions* sendEmailOptions = [[OAISendEmailOptions alloc] init]; // sendEmailOptions
+NSString* inboxId = @"inboxId_example"; // ID of the inbox you want to send the email from
+OAISendEmailOptions* sendEmailOptions = [[OAISendEmailOptions alloc] init]; // Options for the email (optional)
 
 OAIInboxControllerApi*apiInstance = [[OAIInboxControllerApi alloc] init];
 
@@ -566,8 +566,8 @@ OAIInboxControllerApi*apiInstance = [[OAIInboxControllerApi alloc] init];
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inboxId** | [**NSString***](.md)| inboxId | 
- **sendEmailOptions** | [**OAISendEmailOptions***](OAISendEmailOptions.md)| sendEmailOptions | 
+ **inboxId** | [**NSString***](.md)| ID of the inbox you want to send the email from | 
+ **sendEmailOptions** | [**OAISendEmailOptions***](OAISendEmailOptions.md)| Options for the email | [optional] 
 
 ### Return type
 

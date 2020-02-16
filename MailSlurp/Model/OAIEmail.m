@@ -17,7 +17,7 @@
  * This method is used by `JSONModel`.
  */
 + (JSONKeyMapper *)keyMapper {
-  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"analysis": @"analysis", @"attachments": @"attachments", @"bcc": @"bcc", @"body": @"body", @"cc": @"cc", @"charset": @"charset", @"createdAt": @"createdAt", @"from": @"from", @"headers": @"headers", @"_id": @"id", @"inboxId": @"inboxId", @"isHTML": @"isHTML", @"rawUrl": @"rawUrl", @"read": @"read", @"subject": @"subject", @"to": @"to", @"updatedAt": @"updatedAt", @"userId": @"userId" }];
+  return [[JSONKeyMapper alloc] initWithModelToJSONDictionary:@{ @"analysis": @"analysis", @"attachments": @"attachments", @"bcc": @"bcc", @"body": @"body", @"cc": @"cc", @"charset": @"charset", @"createdAt": @"createdAt", @"from": @"from", @"headers": @"headers", @"_id": @"id", @"inboxId": @"inboxId", @"isHTML": @"isHTML", @"read": @"read", @"subject": @"subject", @"to": @"to", @"updatedAt": @"updatedAt", @"userId": @"userId" }];
 }
 
 /**
@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[@"analysis", @"attachments", @"bcc", @"body", @"cc", @"charset", @"from", @"headers", @"isHTML", @"rawUrl", @"read", @"subject", ];
+  NSArray *optionalProperties = @[@"analysis", @"attachments", @"bcc", @"body", @"cc", @"charset", @"createdAt", @"from", @"headers", @"_id", @"inboxId", @"isHTML", @"read", @"subject", @"to", @"updatedAt", @"userId"];
   return [optionalProperties containsObject:propertyName];
 }
 

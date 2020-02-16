@@ -402,7 +402,7 @@ OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
 
 
-NSString* inboxId = @"inboxId_example"; // Id of the inbox we are fetching emails from (optional)
+NSString* inboxId = @"inboxId_example"; // Id of the inbox you are fetching emails from (optional)
 NSNumber* index = @56; // Zero based index of the email to wait for (optional)
 NSNumber* timeout = @56; // Max milliseconds to wait (optional)
 NSNumber* unreadOnly = @(NO); // Optional filter for unread only (optional) (default to @(NO))
@@ -428,7 +428,7 @@ OAICommonActionsControllerApi*apiInstance = [[OAICommonActionsControllerApi allo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inboxId** | [**NSString***](.md)| Id of the inbox we are fetching emails from | [optional] 
+ **inboxId** | [**NSString***](.md)| Id of the inbox you are fetching emails from | [optional] 
  **index** | **NSNumber***| Zero based index of the email to wait for | [optional] 
  **timeout** | **NSNumber***| Max milliseconds to wait | [optional] 
  **unreadOnly** | **NSNumber***| Optional filter for unread only | [optional] [default to @(NO)]

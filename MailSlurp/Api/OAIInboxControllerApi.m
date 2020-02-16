@@ -649,9 +649,9 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
 ///
 /// Send Email
 /// Send an email from the inbox's email address. Specify the email recipients and contents in the request body. See the `SendEmailOptions` for more information. Note the `inboxId` refers to the inbox's id NOT its email address
-///  @param inboxId inboxId 
+///  @param inboxId ID of the inbox you want to send the email from 
 ///
-///  @param sendEmailOptions sendEmailOptions 
+///  @param sendEmailOptions Options for the email (optional)
 ///
 ///  @returns void
 ///
@@ -663,17 +663,6 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
         NSParameterAssert(inboxId);
         if(handler) {
             NSDictionary * userInfo = @{NSLocalizedDescriptionKey : [NSString stringWithFormat:NSLocalizedString(@"Missing required parameter '%@'", nil),@"inboxId"] };
-            NSError* error = [NSError errorWithDomain:kOAIInboxControllerApiErrorDomain code:kOAIInboxControllerApiMissingParamErrorCode userInfo:userInfo];
-            handler(error);
-        }
-        return nil;
-    }
-
-    // verify the required parameter 'sendEmailOptions' is set
-    if (sendEmailOptions == nil) {
-        NSParameterAssert(sendEmailOptions);
-        if(handler) {
-            NSDictionary * userInfo = @{NSLocalizedDescriptionKey : [NSString stringWithFormat:NSLocalizedString(@"Missing required parameter '%@'", nil),@"sendEmailOptions"] };
             NSError* error = [NSError errorWithDomain:kOAIInboxControllerApiErrorDomain code:kOAIInboxControllerApiMissingParamErrorCode userInfo:userInfo];
             handler(error);
         }

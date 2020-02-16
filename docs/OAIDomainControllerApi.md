@@ -13,7 +13,7 @@ Method | HTTP request | Description
 # **createDomain**
 ```objc
 -(NSURLSessionTask*) createDomainWithDomainOptions: (OAICreateDomainOptions*) domainOptions
-        completionHandler: (void (^)(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error)) handler;
+        completionHandler: (void (^)(OAIDomainDto* output, NSError* error)) handler;
 ```
 
 Create Domain
@@ -36,7 +36,7 @@ OAIDomainControllerApi*apiInstance = [[OAIDomainControllerApi alloc] init];
 
 // Create Domain
 [apiInstance createDomainWithDomainOptions:domainOptions
-          completionHandler: ^(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error) {
+          completionHandler: ^(OAIDomainDto* output, NSError* error) {
                         if (output) {
                             NSLog(@"%@", output);
                         }
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OAIDomainPlusVerificationRecordsAndStatus***](OAIDomainPlusVerificationRecordsAndStatus.md)
+[**OAIDomainDto***](OAIDomainDto.md)
 
 ### Authorization
 
@@ -124,7 +124,7 @@ void (empty response body)
 # **getDomain**
 ```objc
 -(NSURLSessionTask*) getDomainWithId: (NSString*) _id
-        completionHandler: (void (^)(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error)) handler;
+        completionHandler: (void (^)(OAIDomainDto* output, NSError* error)) handler;
 ```
 
 Get a domain
@@ -147,7 +147,7 @@ OAIDomainControllerApi*apiInstance = [[OAIDomainControllerApi alloc] init];
 
 // Get a domain
 [apiInstance getDomainWithId:_id
-          completionHandler: ^(OAIDomainPlusVerificationRecordsAndStatus* output, NSError* error) {
+          completionHandler: ^(OAIDomainDto* output, NSError* error) {
                         if (output) {
                             NSLog(@"%@", output);
                         }
@@ -165,7 +165,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OAIDomainPlusVerificationRecordsAndStatus***](OAIDomainPlusVerificationRecordsAndStatus.md)
+[**OAIDomainDto***](OAIDomainDto.md)
 
 ### Authorization
 

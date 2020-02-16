@@ -52,7 +52,7 @@ NSInteger kOAIBulkActionsControllerApiMissingParamErrorCode = 234513;
 
 ///
 /// Bulk create Inboxes (email addresses)
-/// Enterprise Plan Required
+/// 
 ///  @param count Number of inboxes to be created in bulk 
 ///
 ///  @returns NSArray<OAIInbox>*
@@ -120,7 +120,7 @@ NSInteger kOAIBulkActionsControllerApiMissingParamErrorCode = 234513;
 
 ///
 /// Bulk Delete Inboxes
-/// Enterprise Plan Required
+/// 
 ///  @param ids ids 
 ///
 ///  @returns void
@@ -186,7 +186,7 @@ NSInteger kOAIBulkActionsControllerApiMissingParamErrorCode = 234513;
 
 ///
 /// Bulk Send Emails
-/// Enterprise Plan Required
+/// 
 ///  @param bulkSendEmailOptions bulkSendEmailOptions 
 ///
 ///  @returns void

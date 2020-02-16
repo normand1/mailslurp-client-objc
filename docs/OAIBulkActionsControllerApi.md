@@ -17,8 +17,6 @@ Method | HTTP request | Description
 
 Bulk create Inboxes (email addresses)
 
-Enterprise Plan Required
-
 ### Example 
 ```objc
 OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
@@ -74,8 +72,6 @@ Name | Type | Description  | Notes
 
 Bulk Delete Inboxes
 
-Enterprise Plan Required
-
 ### Example 
 ```objc
 OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
@@ -127,8 +123,6 @@ void (empty response body)
 ```
 
 Bulk Send Emails
-
-Enterprise Plan Required
 
 ### Example 
 ```objc
