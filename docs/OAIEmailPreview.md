@@ -3,10 +3,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**attachments** | **NSArray&lt;NSString*&gt;*** |  | [optional] 
 **bcc** | **NSArray&lt;NSString*&gt;*** |  | [optional] 
 **cc** | **NSArray&lt;NSString*&gt;*** |  | [optional] 
 **created** | **NSDate*** |  | 
-**_id** | **NSString*** |  | 
+**createdAt** | **NSDate*** |  | 
+**_id** | **NSString*** | ID of the Email. | [optional] 
+**read** | **NSNumber*** |  | [optional] 
 **subject** | **NSString*** |  | [optional] 
 **to** | **NSArray&lt;NSString*&gt;*** |  | 
 

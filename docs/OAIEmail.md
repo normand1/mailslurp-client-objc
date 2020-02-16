@@ -8,12 +8,15 @@ Name | Type | Description | Notes
 **bcc** | **NSArray&lt;NSString*&gt;*** |  | [optional] 
 **body** | **NSString*** |  | [optional] 
 **cc** | **NSArray&lt;NSString*&gt;*** |  | [optional] 
+**charset** | **NSString*** |  | [optional] 
 **createdAt** | **NSDate*** |  | 
 **from** | **NSString*** |  | [optional] 
 **headers** | **NSDictionary&lt;NSString*, NSString*&gt;*** |  | [optional] 
 **_id** | **NSString*** |  | 
 **inboxId** | **NSString*** |  | 
+**isHTML** | **NSNumber*** |  | [optional] 
 **rawUrl** | **NSString*** |  | [optional] 
+**read** | **NSNumber*** | Has the email been viewed ever | [optional] 
 **subject** | **NSString*** |  | [optional] 
 **to** | **NSArray&lt;NSString*&gt;*** |  | 
 **updatedAt** | **NSDate*** |  | 
