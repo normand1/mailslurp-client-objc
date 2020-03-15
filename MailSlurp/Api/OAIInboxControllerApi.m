@@ -7,6 +7,7 @@
 #import "OAIPageInboxProjection.h"
 #import "OAISendEmailOptions.h"
 #import "OAISetInboxFavouritedOptions.h"
+#import "OAIUpdateInboxOptions.h"
 
 
 @interface OAIInboxControllerApi ()
@@ -56,7 +57,7 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
 
 ///
 /// Create an Inbox (email address)
-/// Create a new inbox and with a ranmdomized email address to send and receive from. Pass emailAddress parameter if you wish to use a specific email address. Creating an inbox is required before sending or receiving emails. If writing tests it is recommended that you create a new inbox during each test method so that it is unique and empty. 
+/// Create a new inbox and with a randomized email address to send and receive from. Pass emailAddress parameter if you wish to use a specific email address. Creating an inbox is required before sending or receiving emails. If writing tests it is recommended that you create a new inbox during each test method so that it is unique and empty. 
 ///  @param _description Optional description for an inbox. (optional)
 ///
 ///  @param emailAddress Optional email address including domain you wish inbox to use (eg: test123@mydomain.com). Only supports domains that you have registered and verified with MailSlurp using dashboard or `createDomain` method. (optional)
@@ -143,7 +144,7 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
 
 ///
 /// Delete all inboxes
-/// Permanently delete all inboxes and associated email addresses and all emails within the given inboxes
+/// Permanently delete all inboxes and associated email addresses. This will also delete all emails within the inboxes. Be careful as inboxes cannot be recovered once deleted. Note: deleting inboxes will not impact your usage limits. Monthly inbox creation limits are based on how many inboxes were created in the last 30 days, not how many inboxes you currently have.
 ///  @returns void
 ///
 -(NSURLSessionTask*) deleteAllInboxesWithCompletionHandler: 
@@ -194,8 +195,8 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
 }
 
 ///
-/// Delete Inbox / Email Address
-/// Permanently delete an inbox and associated email address and all emails within the given inboxes
+/// Delete inbox
+/// Permanently delete an inbox and associated email address aswell as all emails within the given inbox. This action cannot be undone. Note: deleting an inbox will not affect your account usage. Monthly inbox usage is based on how many inboxes you create within 30 days, not how many exist at time of request.
 ///  @param inboxId inboxId 
 ///
 ///  @returns void
@@ -441,7 +442,7 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
 }
 
 ///
-/// Get Inbox / EmailAddress
+/// Get Inbox
 /// Returns an inbox's properties, including its email address and ID.
 ///  @param inboxId inboxId 
 ///
@@ -648,7 +649,7 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
 
 ///
 /// Send Email
-/// Send an email from the inbox's email address. Specify the email recipients and contents in the request body. See the `SendEmailOptions` for more information. Note the `inboxId` refers to the inbox's id NOT its email address
+/// Send an email from an inbox's email address.  The request body should contain the `SendEmailOptions` that include recipients, attachments, body etc. See `SendEmailOptions` for all available properties. Note the `inboxId` refers to the inbox's id not the inbox's email address. See https://www.mailslurp.com/guides/ for more information on how to send emails.
 ///  @param inboxId ID of the inbox you want to send the email from 
 ///
 ///  @param sendEmailOptions Options for the email (optional)
@@ -784,6 +785,89 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
 
     return [self.apiClient requestWithPath: resourcePath
                                     method: @"PUT"
+                                pathParams: pathParams
+                               queryParams: queryParams
+                                formParams: formParams
+                                     files: localVarFiles
+                                      body: bodyParam
+                              headerParams: headerParams
+                              authSettings: authSettings
+                        requestContentType: requestContentType
+                       responseContentType: responseContentType
+                              responseType: @"OAIInbox*"
+                           completionBlock: ^(id data, NSError *error) {
+                                if(handler) {
+                                    handler((OAIInbox*)data, error);
+                                }
+                            }];
+}
+
+///
+/// Update Inbox
+/// Update editable fields on an inbox
+///  @param inboxId inboxId 
+///
+///  @param updateInboxOptions updateInboxOptions 
+///
+///  @returns OAIInbox*
+///
+-(NSURLSessionTask*) updateInboxWithInboxId: (NSString*) inboxId
+    updateInboxOptions: (OAIUpdateInboxOptions*) updateInboxOptions
+    completionHandler: (void (^)(OAIInbox* output, NSError* error)) handler {
+    // verify the required parameter 'inboxId' is set
+    if (inboxId == nil) {
+        NSParameterAssert(inboxId);
+        if(handler) {
+            NSDictionary * userInfo = @{NSLocalizedDescriptionKey : [NSString stringWithFormat:NSLocalizedString(@"Missing required parameter '%@'", nil),@"inboxId"] };
+            NSError* error = [NSError errorWithDomain:kOAIInboxControllerApiErrorDomain code:kOAIInboxControllerApiMissingParamErrorCode userInfo:userInfo];
+            handler(nil, error);
+        }
+        return nil;
+    }
+
+    // verify the required parameter 'updateInboxOptions' is set
+    if (updateInboxOptions == nil) {
+        NSParameterAssert(updateInboxOptions);
+        if(handler) {
+            NSDictionary * userInfo = @{NSLocalizedDescriptionKey : [NSString stringWithFormat:NSLocalizedString(@"Missing required parameter '%@'", nil),@"updateInboxOptions"] };
+            NSError* error = [NSError errorWithDomain:kOAIInboxControllerApiErrorDomain code:kOAIInboxControllerApiMissingParamErrorCode userInfo:userInfo];
+            handler(nil, error);
+        }
+        return nil;
+    }
+
+    NSMutableString* resourcePath = [NSMutableString stringWithFormat:@"/inboxes/{inboxId}"];
+
+    NSMutableDictionary *pathParams = [[NSMutableDictionary alloc] init];
+    if (inboxId != nil) {
+        pathParams[@"inboxId"] = inboxId;
+    }
+
+    NSMutableDictionary* queryParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary* headerParams = [NSMutableDictionary dictionaryWithDictionary:self.apiClient.configuration.defaultHeaders];
+    [headerParams addEntriesFromDictionary:self.defaultHeaders];
+    // HTTP header `Accept`
+    NSString *acceptHeader = [self.apiClient.sanitizer selectHeaderAccept:@[@"application/json"]];
+    if(acceptHeader.length > 0) {
+        headerParams[@"Accept"] = acceptHeader;
+    }
+
+    // response content type
+    NSString *responseContentType = [[acceptHeader componentsSeparatedByString:@", "] firstObject] ?: @"";
+
+    // request content type
+    NSString *requestContentType = [self.apiClient.sanitizer selectHeaderContentType:@[@"application/json"]];
+
+    // Authentication setting
+    NSArray *authSettings = @[@"API_KEY"];
+
+    id bodyParam = nil;
+    NSMutableDictionary *formParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *localVarFiles = [[NSMutableDictionary alloc] init];
+    bodyParam = updateInboxOptions;
+
+    return [self.apiClient requestWithPath: resourcePath
+                                    method: @"PATCH"
                                 pathParams: pathParams
                                queryParams: queryParams
                                 formParams: formParams

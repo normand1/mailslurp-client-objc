@@ -6,14 +6,15 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createInbox**](OAIInboxControllerApi.md#createinbox) | **POST** /inboxes | Create an Inbox (email address)
 [**deleteAllInboxes**](OAIInboxControllerApi.md#deleteallinboxes) | **DELETE** /inboxes | Delete all inboxes
-[**deleteInbox**](OAIInboxControllerApi.md#deleteinbox) | **DELETE** /inboxes/{inboxId} | Delete Inbox / Email Address
+[**deleteInbox**](OAIInboxControllerApi.md#deleteinbox) | **DELETE** /inboxes/{inboxId} | Delete inbox
 [**getAllInboxes**](OAIInboxControllerApi.md#getallinboxes) | **GET** /inboxes/paginated | List Inboxes Paginated
 [**getEmails**](OAIInboxControllerApi.md#getemails) | **GET** /inboxes/{inboxId}/emails | Get emails in an Inbox
-[**getInbox**](OAIInboxControllerApi.md#getinbox) | **GET** /inboxes/{inboxId} | Get Inbox / EmailAddress
+[**getInbox**](OAIInboxControllerApi.md#getinbox) | **GET** /inboxes/{inboxId} | Get Inbox
 [**getInboxEmailsPaginated**](OAIInboxControllerApi.md#getinboxemailspaginated) | **GET** /inboxes/{inboxId}/emails/paginated | Get inbox emails paginated
 [**getInboxes**](OAIInboxControllerApi.md#getinboxes) | **GET** /inboxes | List Inboxes / Email Addresses
 [**sendEmail**](OAIInboxControllerApi.md#sendemail) | **POST** /inboxes/{inboxId} | Send Email
 [**setInboxFavourited**](OAIInboxControllerApi.md#setinboxfavourited) | **PUT** /inboxes/{inboxId}/favourite | Set inbox favourited state
+[**updateInbox**](OAIInboxControllerApi.md#updateinbox) | **PATCH** /inboxes/{inboxId} | Update Inbox
 
 
 # **createInbox**
@@ -29,7 +30,7 @@ Method | HTTP request | Description
 
 Create an Inbox (email address)
 
-Create a new inbox and with a ranmdomized email address to send and receive from. Pass emailAddress parameter if you wish to use a specific email address. Creating an inbox is required before sending or receiving emails. If writing tests it is recommended that you create a new inbox during each test method so that it is unique and empty. 
+Create a new inbox and with a randomized email address to send and receive from. Pass emailAddress parameter if you wish to use a specific email address. Creating an inbox is required before sending or receiving emails. If writing tests it is recommended that you create a new inbox during each test method so that it is unique and empty. 
 
 ### Example 
 ```objc
@@ -101,7 +102,7 @@ Name | Type | Description  | Notes
 
 Delete all inboxes
 
-Permanently delete all inboxes and associated email addresses and all emails within the given inboxes
+Permanently delete all inboxes and associated email addresses. This will also delete all emails within the inboxes. Be careful as inboxes cannot be recovered once deleted. Note: deleting inboxes will not impact your usage limits. Monthly inbox creation limits are based on how many inboxes were created in the last 30 days, not how many inboxes you currently have.
 
 ### Example 
 ```objc
@@ -149,9 +150,9 @@ void (empty response body)
         completionHandler: (void (^)(NSError* error)) handler;
 ```
 
-Delete Inbox / Email Address
+Delete inbox
 
-Permanently delete an inbox and associated email address and all emails within the given inboxes
+Permanently delete an inbox and associated email address aswell as all emails within the given inbox. This action cannot be undone. Note: deleting an inbox will not affect your account usage. Monthly inbox usage is based on how many inboxes you create within 30 days, not how many exist at time of request.
 
 ### Example 
 ```objc
@@ -167,7 +168,7 @@ NSString* inboxId = @"inboxId_example"; // inboxId
 
 OAIInboxControllerApi*apiInstance = [[OAIInboxControllerApi alloc] init];
 
-// Delete Inbox / Email Address
+// Delete inbox
 [apiInstance deleteInboxWithInboxId:inboxId
           completionHandler: ^(NSError* error) {
                         if (error) {
@@ -353,7 +354,7 @@ Name | Type | Description  | Notes
         completionHandler: (void (^)(OAIInbox* output, NSError* error)) handler;
 ```
 
-Get Inbox / EmailAddress
+Get Inbox
 
 Returns an inbox's properties, including its email address and ID.
 
@@ -371,7 +372,7 @@ NSString* inboxId = @"inboxId_example"; // inboxId
 
 OAIInboxControllerApi*apiInstance = [[OAIInboxControllerApi alloc] init];
 
-// Get Inbox / EmailAddress
+// Get Inbox
 [apiInstance getInboxWithInboxId:inboxId
           completionHandler: ^(OAIInbox* output, NSError* error) {
                         if (output) {
@@ -535,7 +536,7 @@ This endpoint does not need any parameter.
 
 Send Email
 
-Send an email from the inbox's email address. Specify the email recipients and contents in the request body. See the `SendEmailOptions` for more information. Note the `inboxId` refers to the inbox's id NOT its email address
+Send an email from an inbox's email address.  The request body should contain the `SendEmailOptions` that include recipients, attachments, body etc. See `SendEmailOptions` for all available properties. Note the `inboxId` refers to the inbox's id not the inbox's email address. See https://www.mailslurp.com/guides/ for more information on how to send emails.
 
 ### Example 
 ```objc
@@ -629,6 +630,67 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **inboxId** | [**NSString***](.md)| inboxId | 
  **setInboxFavouritedOptions** | [**OAISetInboxFavouritedOptions***](OAISetInboxFavouritedOptions.md)| setInboxFavouritedOptions | 
+
+### Return type
+
+[**OAIInbox***](OAIInbox.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updateInbox**
+```objc
+-(NSURLSessionTask*) updateInboxWithInboxId: (NSString*) inboxId
+    updateInboxOptions: (OAIUpdateInboxOptions*) updateInboxOptions
+        completionHandler: (void (^)(OAIInbox* output, NSError* error)) handler;
+```
+
+Update Inbox
+
+Update editable fields on an inbox
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSString* inboxId = @"inboxId_example"; // inboxId
+OAIUpdateInboxOptions* updateInboxOptions = [[OAIUpdateInboxOptions alloc] init]; // updateInboxOptions
+
+OAIInboxControllerApi*apiInstance = [[OAIInboxControllerApi alloc] init];
+
+// Update Inbox
+[apiInstance updateInboxWithInboxId:inboxId
+              updateInboxOptions:updateInboxOptions
+          completionHandler: ^(OAIInbox* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIInboxControllerApi->updateInbox: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inboxId** | [**NSString***](.md)| inboxId | 
+ **updateInboxOptions** | [**OAIUpdateInboxOptions***](OAIUpdateInboxOptions.md)| updateInboxOptions | 
 
 ### Return type
 

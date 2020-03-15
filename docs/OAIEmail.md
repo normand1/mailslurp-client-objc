@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **cc** | **NSArray&lt;NSString*&gt;*** | List of &#x60;CC&#x60; recipients email was addressed to | [optional] 
 **charset** | **NSString*** | Detected character set of the email body such as UTF-8 | [optional] 
 **createdAt** | **NSDate*** | When was the email received by MailSlurp | [optional] 
-**from** | **NSString*** | Who was the email sent from | [optional] 
+**from** | **NSString*** | Who the email was sent from | [optional] 
 **headers** | **NSDictionary&lt;NSString*, NSString*&gt;*** |  | [optional] 
 **_id** | **NSString*** | ID of the email | [optional] 
 **inboxId** | **NSString*** | ID of the inbox that received the email | [optional] 

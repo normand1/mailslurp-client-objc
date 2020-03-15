@@ -5,14 +5,17 @@ All URIs are relative to *https://api.mailslurp.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteAllEmails**](OAIEmailControllerApi.md#deleteallemails) | **DELETE** /emails | Delete all emails
-[**deleteEmail**](OAIEmailControllerApi.md#deleteemail) | **DELETE** /emails/{emailId} | Delete Email
-[**downloadAttachment**](OAIEmailControllerApi.md#downloadattachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment
-[**forwardEmail**](OAIEmailControllerApi.md#forwardemail) | **POST** /emails/{emailId}/forward | Forward Email
+[**deleteEmail**](OAIEmailControllerApi.md#deleteemail) | **DELETE** /emails/{emailId} | Delete an email
+[**downloadAttachment**](OAIEmailControllerApi.md#downloadattachment) | **GET** /emails/{emailId}/attachments/{attachmentId} | Get email attachment bytes
+[**forwardEmail**](OAIEmailControllerApi.md#forwardemail) | **POST** /emails/{emailId}/forward | Forward email
 [**getAttachmentMetaData**](OAIEmailControllerApi.md#getattachmentmetadata) | **GET** /emails/{emailId}/attachments/{attachmentId}/metadata | Get email attachment metadata
 [**getAttachments**](OAIEmailControllerApi.md#getattachments) | **GET** /emails/{emailId}/attachments | Get all email attachment metadata
-[**getEmail**](OAIEmailControllerApi.md#getemail) | **GET** /emails/{emailId} | Get Email Content
+[**getEmail**](OAIEmailControllerApi.md#getemail) | **GET** /emails/{emailId} | Get email content
+[**getEmailHTML**](OAIEmailControllerApi.md#getemailhtml) | **GET** /emails/{emailId}/html | Get email content as HTML
 [**getEmailsPaginated**](OAIEmailControllerApi.md#getemailspaginated) | **GET** /emails | Get all emails
-[**getRawEmailContents**](OAIEmailControllerApi.md#getrawemailcontents) | **GET** /emails/{emailId}/raw | Get Raw Email Content
+[**getRawEmailContents**](OAIEmailControllerApi.md#getrawemailcontents) | **GET** /emails/{emailId}/raw | Get raw email string
+[**getRawEmailJson**](OAIEmailControllerApi.md#getrawemailjson) | **GET** /emails/{emailId}/raw/json | Get raw email in JSON
+[**getUnreadEmailCount**](OAIEmailControllerApi.md#getunreademailcount) | **GET** /emails/unreadCount | Get unread email count
 [**validateEmail**](OAIEmailControllerApi.md#validateemail) | **POST** /emails/{emailId}/validate | Validate email
 
 
@@ -24,7 +27,7 @@ Method | HTTP request | Description
 
 Delete all emails
 
-Deletes all emails
+Deletes all emails in your account. Be careful as emails cannot be recovered
 
 ### Example 
 ```objc
@@ -72,9 +75,9 @@ void (empty response body)
         completionHandler: (void (^)(NSError* error)) handler;
 ```
 
-Delete Email
+Delete an email
 
-Deletes an email and removes it from the inbox
+Deletes an email and removes it from the inbox. Deleted emails cannot be recovered.
 
 ### Example 
 ```objc
@@ -90,7 +93,7 @@ NSString* emailId = @"emailId_example"; // emailId
 
 OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
 
-// Delete Email
+// Delete an email
 [apiInstance deleteEmailWithEmailId:emailId
           completionHandler: ^(NSError* error) {
                         if (error) {
@@ -128,9 +131,9 @@ void (empty response body)
         completionHandler: (void (^)(NSData* output, NSError* error)) handler;
 ```
 
-Get email attachment
+Get email attachment bytes
 
-Returns the specified attachment for a given email as a byte stream (file download). Get the attachmentId from the email response.
+Returns the specified attachment for a given email as a byte stream (file download). You can find attachment ids in email responses endpoint responses. The response type is application/octet-stream.
 
 ### Example 
 ```objc
@@ -148,7 +151,7 @@ NSString* apiKey = @"apiKey_example"; // Can pass apiKey in url for this request
 
 OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
 
-// Get email attachment
+// Get email attachment bytes
 [apiInstance downloadAttachmentWithAttachmentId:attachmentId
               emailId:emailId
               apiKey:apiKey
@@ -192,9 +195,9 @@ Name | Type | Description  | Notes
         completionHandler: (void (^)(NSError* error)) handler;
 ```
 
-Forward Email
+Forward email
 
-Forward email content to given recipients
+Forward an existing email to new recipients.
 
 ### Example 
 ```objc
@@ -211,7 +214,7 @@ OAIForwardEmailOptions* forwardEmailOptions = [[OAIForwardEmailOptions alloc] in
 
 OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
 
-// Forward Email
+// Forward email
 [apiInstance forwardEmailWithEmailId:emailId
               forwardEmailOptions:forwardEmailOptions
           completionHandler: ^(NSError* error) {
@@ -364,12 +367,13 @@ Name | Type | Description  | Notes
 # **getEmail**
 ```objc
 -(NSURLSessionTask*) getEmailWithEmailId: (NSString*) emailId
+    decode: (NSNumber*) decode
         completionHandler: (void (^)(OAIEmail* output, NSError* error)) handler;
 ```
 
-Get Email Content
+Get email content
 
-Returns a email summary object with headers and content. To retrieve the raw unparsed email use the getRawMessage endpoint
+Returns a email summary object with headers and content. To retrieve the raw unparsed email use the getRawEmail endpoints
 
 ### Example 
 ```objc
@@ -382,11 +386,13 @@ OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
 
 
 NSString* emailId = @"emailId_example"; // emailId
+NSNumber* decode = @(NO); // Decode email body quoted-printable encoding to plain text. SMTP servers often encode text using quoted-printable format (for instance `=D7`). This can be a pain for testing (optional) (default to @(NO))
 
 OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
 
-// Get Email Content
+// Get email content
 [apiInstance getEmailWithEmailId:emailId
+              decode:decode
           completionHandler: ^(OAIEmail* output, NSError* error) {
                         if (output) {
                             NSLog(@"%@", output);
@@ -402,6 +408,7 @@ OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **emailId** | [**NSString***](.md)| emailId | 
+ **decode** | **NSNumber***| Decode email body quoted-printable encoding to plain text. SMTP servers often encode text using quoted-printable format (for instance &#x60;&#x3D;D7&#x60;). This can be a pain for testing | [optional] [default to @(NO)]
 
 ### Return type
 
@@ -418,6 +425,67 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getEmailHTML**
+```objc
+-(NSURLSessionTask*) getEmailHTMLWithEmailId: (NSString*) emailId
+    decode: (NSNumber*) decode
+        completionHandler: (void (^)(NSString* output, NSError* error)) handler;
+```
+
+Get email content as HTML
+
+Retrieve email content as HTML response for viewing in browsers. Decodes quoted-printable entities and converts charset to UTF-8. Pass your API KEY as a request parameter when viewing in a browser: `?apiKey=xxx`
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSString* emailId = @"emailId_example"; // emailId
+NSNumber* decode = @(NO); // decode (optional) (default to @(NO))
+
+OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
+
+// Get email content as HTML
+[apiInstance getEmailHTMLWithEmailId:emailId
+              decode:decode
+          completionHandler: ^(NSString* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIEmailControllerApi->getEmailHTML: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **emailId** | [**NSString***](.md)| emailId | 
+ **decode** | **NSNumber***| decode | [optional] [default to @(NO)]
+
+### Return type
+
+**NSString***
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/html
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **getEmailsPaginated**
 ```objc
 -(NSURLSessionTask*) getEmailsPaginatedWithInboxId: (NSArray<NSString*>*) inboxId
@@ -430,7 +498,7 @@ Name | Type | Description  | Notes
 
 Get all emails
 
-Responses are paginated
+By default returns all emails across all inboxes sorted by ascending created at date. Responses are paginated. You can restrict results to a list of inbox IDs. You can also filter out read messages
 
 ### Example 
 ```objc
@@ -442,11 +510,11 @@ OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
 //[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
 
 
-NSArray<NSString*>* inboxId = @[@"inboxId_example"]; // Optional inbox ids to filter by. Can be repeated (optional)
+NSArray<NSString*>* inboxId = @[@"inboxId_example"]; // Optional inbox ids to filter by. Can be repeated. By default will use all inboxes belonging to your account. (optional)
 NSNumber* page = @0; // Optional page index in email list pagination (optional) (default to @0)
 NSNumber* size = @20; // Optional page size in email list pagination (optional) (default to @20)
 NSString* sort = @"ASC"; // Optional createdAt sort direction ASC or DESC (optional) (default to @"ASC")
-NSNumber* unreadOnly = @(NO); // Optional filter for unread emails only (optional) (default to @(NO))
+NSNumber* unreadOnly = @(NO); // Optional filter for unread emails only. All emails are considered unread until they are viewed in the dashboard or requested directly (optional) (default to @(NO))
 
 OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
 
@@ -470,11 +538,11 @@ OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inboxId** | [**NSArray&lt;NSString*&gt;***](NSString*.md)| Optional inbox ids to filter by. Can be repeated | [optional] 
+ **inboxId** | [**NSArray&lt;NSString*&gt;***](NSString*.md)| Optional inbox ids to filter by. Can be repeated. By default will use all inboxes belonging to your account. | [optional] 
  **page** | **NSNumber***| Optional page index in email list pagination | [optional] [default to @0]
  **size** | **NSNumber***| Optional page size in email list pagination | [optional] [default to @20]
  **sort** | **NSString***| Optional createdAt sort direction ASC or DESC | [optional] [default to @&quot;ASC&quot;]
- **unreadOnly** | **NSNumber***| Optional filter for unread emails only | [optional] [default to @(NO)]
+ **unreadOnly** | **NSNumber***| Optional filter for unread emails only. All emails are considered unread until they are viewed in the dashboard or requested directly | [optional] [default to @(NO)]
 
 ### Return type
 
@@ -497,9 +565,9 @@ Name | Type | Description  | Notes
         completionHandler: (void (^)(NSString* output, NSError* error)) handler;
 ```
 
-Get Raw Email Content
+Get raw email string
 
-Returns a raw, unparsed and unprocessed email
+Returns a raw, unparsed, and unprocessed email. If your client has issues processing the response it is likely due to the response content-type which is text/plain. If you need a JSON response content-type use the getRawEmailJson endpoint
 
 ### Example 
 ```objc
@@ -515,7 +583,7 @@ NSString* emailId = @"emailId_example"; // emailId
 
 OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
 
-// Get Raw Email Content
+// Get raw email string
 [apiInstance getRawEmailContentsWithEmailId:emailId
           completionHandler: ^(NSString* output, NSError* error) {
                         if (output) {
@@ -548,6 +616,116 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **getRawEmailJson**
+```objc
+-(NSURLSessionTask*) getRawEmailJsonWithEmailId: (NSString*) emailId
+        completionHandler: (void (^)(OAIRawEmailJson* output, NSError* error)) handler;
+```
+
+Get raw email in JSON
+
+Returns a raw, unparsed, and unprocessed email wrapped in a JSON response object for easier handling when compared with the getRawEmail text/plain response
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+NSString* emailId = @"emailId_example"; // emailId
+
+OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
+
+// Get raw email in JSON
+[apiInstance getRawEmailJsonWithEmailId:emailId
+          completionHandler: ^(OAIRawEmailJson* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIEmailControllerApi->getRawEmailJson: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **emailId** | [**NSString***](.md)| emailId | 
+
+### Return type
+
+[**OAIRawEmailJson***](OAIRawEmailJson.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUnreadEmailCount**
+```objc
+-(NSURLSessionTask*) getUnreadEmailCountWithCompletionHandler: 
+        (void (^)(OAIUnreadCount* output, NSError* error)) handler;
+```
+
+Get unread email count
+
+Get number of emails unread
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+
+OAIEmailControllerApi*apiInstance = [[OAIEmailControllerApi alloc] init];
+
+// Get unread email count
+[apiInstance getUnreadEmailCountWithCompletionHandler: 
+          ^(OAIUnreadCount* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIEmailControllerApi->getUnreadEmailCount: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**OAIUnreadCount***](OAIUnreadCount.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **validateEmail**
 ```objc
 -(NSURLSessionTask*) validateEmailWithEmailId: (NSString*) emailId
@@ -556,7 +734,7 @@ Name | Type | Description  | Notes
 
 Validate email
 
-Validate HTML content of email
+Validate the HTML content of email if HTML is found. Considered valid if no HTML.
 
 ### Example 
 ```objc
