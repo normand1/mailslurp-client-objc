@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[@"inboxIds", ];
+  NSArray *optionalProperties = @[@"inboxIds", @"sendEmailOptions"];
   return [optionalProperties containsObject:propertyName];
 }
 

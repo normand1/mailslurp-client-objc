@@ -275,6 +275,8 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
 ///
 ///  @param sort Optional createdAt sort direction ASC or DESC (optional, default to @"ASC")
 ///
+///  @param tag Optionally filter by tags (optional)
+///
 ///  @returns OAIPageInboxProjection*
 ///
 -(NSURLSessionTask*) getAllInboxesWithFavourite: (NSNumber*) favourite
@@ -282,6 +284,7 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
     search: (NSString*) search
     size: (NSNumber*) size
     sort: (NSString*) sort
+    tag: (NSString*) tag
     completionHandler: (void (^)(OAIPageInboxProjection* output, NSError* error)) handler {
     NSMutableString* resourcePath = [NSMutableString stringWithFormat:@"/inboxes/paginated"];
 
@@ -302,6 +305,9 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
     }
     if (sort != nil) {
         queryParams[@"sort"] = sort;
+    }
+    if (tag != nil) {
+        queryParams[@"tag"] = tag;
     }
     NSMutableDictionary* headerParams = [NSMutableDictionary dictionaryWithDictionary:self.apiClient.configuration.defaultHeaders];
     [headerParams addEntriesFromDictionary:self.defaultHeaders];
@@ -591,6 +597,58 @@ NSInteger kOAIInboxControllerApiMissingParamErrorCode = 234513;
                            completionBlock: ^(id data, NSError *error) {
                                 if(handler) {
                                     handler((OAIPageEmailPreview*)data, error);
+                                }
+                            }];
+}
+
+///
+/// Get inbox tags
+/// Get all inbox tags
+///  @returns NSArray<NSString*>*
+///
+-(NSURLSessionTask*) getInboxTagsWithCompletionHandler: 
+    (void (^)(NSArray<NSString*>* output, NSError* error)) handler {
+    NSMutableString* resourcePath = [NSMutableString stringWithFormat:@"/inboxes/tags"];
+
+    NSMutableDictionary *pathParams = [[NSMutableDictionary alloc] init];
+
+    NSMutableDictionary* queryParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary* headerParams = [NSMutableDictionary dictionaryWithDictionary:self.apiClient.configuration.defaultHeaders];
+    [headerParams addEntriesFromDictionary:self.defaultHeaders];
+    // HTTP header `Accept`
+    NSString *acceptHeader = [self.apiClient.sanitizer selectHeaderAccept:@[@"application/json"]];
+    if(acceptHeader.length > 0) {
+        headerParams[@"Accept"] = acceptHeader;
+    }
+
+    // response content type
+    NSString *responseContentType = [[acceptHeader componentsSeparatedByString:@", "] firstObject] ?: @"";
+
+    // request content type
+    NSString *requestContentType = [self.apiClient.sanitizer selectHeaderContentType:@[]];
+
+    // Authentication setting
+    NSArray *authSettings = @[@"API_KEY"];
+
+    id bodyParam = nil;
+    NSMutableDictionary *formParams = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *localVarFiles = [[NSMutableDictionary alloc] init];
+
+    return [self.apiClient requestWithPath: resourcePath
+                                    method: @"GET"
+                                pathParams: pathParams
+                               queryParams: queryParams
+                                formParams: formParams
+                                     files: localVarFiles
+                                      body: bodyParam
+                              headerParams: headerParams
+                              authSettings: authSettings
+                        requestContentType: requestContentType
+                       responseContentType: responseContentType
+                              responseType: @"NSArray<NSString*>*"
+                           completionBlock: ^(id data, NSError *error) {
+                                if(handler) {
+                                    handler((NSArray<NSString*>*)data, error);
                                 }
                             }];
 }

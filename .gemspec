@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.description = ""
   s.authors     = [""]
   s.email       = ''
-  s.files       = ["lib/mailslurp_client.rb"]
+  s.files       = ['lib/mailslurp_client.rb']
   s.homepage    = ''
   s.metadata    = { "source_code_uri" => "" }
 end

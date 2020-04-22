@@ -70,6 +70,7 @@ Name | Type | Description  | Notes
 -(NSURLSessionTask*) uploadMultipartFormWithFile: (NSURL*) file
     contentType: (NSString*) contentType
     filename: (NSString*) filename
+    xFilename: (NSString*) xFilename
         completionHandler: (void (^)(NSArray<NSString*>* output, NSError* error)) handler;
 ```
 
@@ -90,6 +91,7 @@ OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
 NSURL* file = [NSURL fileURLWithPath:@"/path/to/file"]; // file
 NSString* contentType = @"contentType_example"; // contentType (optional)
 NSString* filename = @"filename_example"; // filename (optional)
+NSString* xFilename = @"xFilename_example"; // x-filename (optional)
 
 OAIAttachmentControllerApi*apiInstance = [[OAIAttachmentControllerApi alloc] init];
 
@@ -97,6 +99,7 @@ OAIAttachmentControllerApi*apiInstance = [[OAIAttachmentControllerApi alloc] ini
 [apiInstance uploadMultipartFormWithFile:file
               contentType:contentType
               filename:filename
+              xFilename:xFilename
           completionHandler: ^(NSArray<NSString*>* output, NSError* error) {
                         if (output) {
                             NSLog(@"%@", output);
@@ -114,6 +117,7 @@ Name | Type | Description  | Notes
  **file** | **NSURL*****NSURL***| file | 
  **contentType** | **NSString***| contentType | [optional] 
  **filename** | **NSString***| filename | [optional] 
+ **xFilename** | **NSString***| x-filename | [optional] 
 
 ### Return type
 

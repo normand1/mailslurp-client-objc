@@ -124,11 +124,14 @@ NSInteger kOAIAttachmentControllerApiMissingParamErrorCode = 234513;
 ///
 ///  @param filename filename (optional)
 ///
+///  @param xFilename x-filename (optional)
+///
 ///  @returns NSArray<NSString*>*
 ///
 -(NSURLSessionTask*) uploadMultipartFormWithFile: (NSURL*) file
     contentType: (NSString*) contentType
     filename: (NSString*) filename
+    xFilename: (NSString*) xFilename
     completionHandler: (void (^)(NSArray<NSString*>* output, NSError* error)) handler {
     // verify the required parameter 'file' is set
     if (file == nil) {
@@ -151,6 +154,9 @@ NSInteger kOAIAttachmentControllerApiMissingParamErrorCode = 234513;
     }
     if (filename != nil) {
         queryParams[@"filename"] = filename;
+    }
+    if (xFilename != nil) {
+        queryParams[@"x-filename"] = xFilename;
     }
     NSMutableDictionary* headerParams = [NSMutableDictionary dictionaryWithDictionary:self.apiClient.configuration.defaultHeaders];
     [headerParams addEntriesFromDictionary:self.defaultHeaders];

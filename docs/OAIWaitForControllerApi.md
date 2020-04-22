@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 Fetch inbox's latest email or if empty wait for an email to arrive
 
-Will return either the last received email or wait for an email to arrive and return that. If you need to wait for an email for a non-empty inbox see the other receive methods such as waitForNthEmail or waitForEmailCount.
+Will return either the last received email or wait for an email to arrive and return that. If you need to wait for an email for a non-empty inbox set `unreadOnly=true` or see the other receive methods such as `waitForNthEmail` or `waitForEmailCount`.
 
 ### Example 
 ```objc
@@ -161,7 +161,7 @@ OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
 
 NSString* inboxId = @"inboxId_example"; // Id of the inbox we are fetching emails from (optional)
 NSNumber* timeout = @56; // Max milliseconds to wait (optional)
-NSNumber* unreadOnly = @(NO); // Optional filter for unread only (optional) (default to @(NO))
+NSNumber* unreadOnly = @(NO); // Optional filter for unread only. (optional) (default to @(NO))
 
 OAIWaitForControllerApi*apiInstance = [[OAIWaitForControllerApi alloc] init];
 
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **inboxId** | [**NSString***](.md)| Id of the inbox we are fetching emails from | [optional] 
  **timeout** | **NSNumber***| Max milliseconds to wait | [optional] 
- **unreadOnly** | **NSNumber***| Optional filter for unread only | [optional] [default to @(NO)]
+ **unreadOnly** | **NSNumber***| Optional filter for unread only. | [optional] [default to @(NO)]
 
 ### Return type
 

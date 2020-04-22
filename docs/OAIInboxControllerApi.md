@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**getEmails**](OAIInboxControllerApi.md#getemails) | **GET** /inboxes/{inboxId}/emails | Get emails in an Inbox
 [**getInbox**](OAIInboxControllerApi.md#getinbox) | **GET** /inboxes/{inboxId} | Get Inbox
 [**getInboxEmailsPaginated**](OAIInboxControllerApi.md#getinboxemailspaginated) | **GET** /inboxes/{inboxId}/emails/paginated | Get inbox emails paginated
+[**getInboxTags**](OAIInboxControllerApi.md#getinboxtags) | **GET** /inboxes/tags | Get inbox tags
 [**getInboxes**](OAIInboxControllerApi.md#getinboxes) | **GET** /inboxes | List Inboxes / Email Addresses
 [**sendEmail**](OAIInboxControllerApi.md#sendemail) | **POST** /inboxes/{inboxId} | Send Email
 [**setInboxFavourited**](OAIInboxControllerApi.md#setinboxfavourited) | **PUT** /inboxes/{inboxId}/favourite | Set inbox favourited state
@@ -205,6 +206,7 @@ void (empty response body)
     search: (NSString*) search
     size: (NSNumber*) size
     sort: (NSString*) sort
+    tag: (NSString*) tag
         completionHandler: (void (^)(OAIPageInboxProjection* output, NSError* error)) handler;
 ```
 
@@ -227,6 +229,7 @@ NSNumber* page = @0; // Optional page index in inbox list pagination (optional) 
 NSString* search = @"search_example"; // Optionally filter by search words partial matching ID, tags, name, and email address (optional)
 NSNumber* size = @20; // Optional page size in inbox list pagination (optional) (default to @20)
 NSString* sort = @"ASC"; // Optional createdAt sort direction ASC or DESC (optional) (default to @"ASC")
+NSString* tag = @"tag_example"; // Optionally filter by tags (optional)
 
 OAIInboxControllerApi*apiInstance = [[OAIInboxControllerApi alloc] init];
 
@@ -236,6 +239,7 @@ OAIInboxControllerApi*apiInstance = [[OAIInboxControllerApi alloc] init];
               search:search
               size:size
               sort:sort
+              tag:tag
           completionHandler: ^(OAIPageInboxProjection* output, NSError* error) {
                         if (output) {
                             NSLog(@"%@", output);
@@ -255,6 +259,7 @@ Name | Type | Description  | Notes
  **search** | **NSString***| Optionally filter by search words partial matching ID, tags, name, and email address | [optional] 
  **size** | **NSNumber***| Optional page size in inbox list pagination | [optional] [default to @20]
  **sort** | **NSString***| Optional createdAt sort direction ASC or DESC | [optional] [default to @&quot;ASC&quot;]
+ **tag** | **NSString***| Optionally filter by tags | [optional] 
 
 ### Return type
 
@@ -462,6 +467,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OAIPageEmailPreview***](OAIPageEmailPreview.md)
+
+### Authorization
+
+[API_KEY](../README.md#API_KEY)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getInboxTags**
+```objc
+-(NSURLSessionTask*) getInboxTagsWithCompletionHandler: 
+        (void (^)(NSArray<NSString*>* output, NSError* error)) handler;
+```
+
+Get inbox tags
+
+Get all inbox tags
+
+### Example 
+```objc
+OAIDefaultConfiguration *apiConfig = [OAIDefaultConfiguration sharedConfig];
+
+// Configure API key authorization: (authentication scheme: API_KEY)
+[apiConfig setApiKey:@"YOUR_API_KEY" forApiKeyIdentifier:@"x-api-key"];
+// Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//[apiConfig setApiKeyPrefix:@"Bearer" forApiKeyIdentifier:@"x-api-key"];
+
+
+
+OAIInboxControllerApi*apiInstance = [[OAIInboxControllerApi alloc] init];
+
+// Get inbox tags
+[apiInstance getInboxTagsWithCompletionHandler: 
+          ^(NSArray<NSString*>* output, NSError* error) {
+                        if (output) {
+                            NSLog(@"%@", output);
+                        }
+                        if (error) {
+                            NSLog(@"Error calling OAIInboxControllerApi->getInboxTags: %@", error);
+                        }
+                    }];
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**NSArray<NSString*>***
 
 ### Authorization
 

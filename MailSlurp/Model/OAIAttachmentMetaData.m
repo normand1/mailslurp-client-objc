@@ -27,7 +27,7 @@
  */
 + (BOOL)propertyIsOptional:(NSString *)propertyName {
 
-  NSArray *optionalProperties = @[];
+  NSArray *optionalProperties = @[@"contentLength", @"contentType", @"_id", @"name"];
   return [optionalProperties containsObject:propertyName];
 }
 
