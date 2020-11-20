@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
 
     s.homepage     = "https://github.com/openapitools/openapi-generator"
     s.license      = "Proprietary"
-    s.source       = { :git => "https://github.com/openapitools/openapi-generator.git", :tag => "#{s.version}" }
+    s.source       = { :git => "https://github.com/openapitools/openapi-generator.git"}
     s.author       = { "mailslurp" => "support@mailslurp.zendesk.com" }
 
     s.source_files = 'mailslurp/**/*.{m,h}'
